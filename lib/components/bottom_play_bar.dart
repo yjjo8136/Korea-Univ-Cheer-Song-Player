@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:korea_univ_cheer_song_player/pages/playlist_page.dart';
 
 class BottomPlayBar extends StatelessWidget {
   @override
@@ -15,7 +16,21 @@ class BottomPlayBar extends StatelessWidget {
           Icon(Icons.play_arrow, size: 60),
           Icon(Icons.skip_next, size: 40),
           SizedBox(width: 20),
-          Icon(Icons.playlist_play, size: 50),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10.0),
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PlaylistPage(),
+                  ),
+                );
+              },
+              icon: Icon(Icons.playlist_play, size: 50),
+            ),
+          ),
+          SizedBox(width: 10),
         ],
       ),
     );
