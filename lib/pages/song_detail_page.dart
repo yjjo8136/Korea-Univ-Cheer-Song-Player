@@ -10,7 +10,8 @@ class SongDetailPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 40),
+              SizedBox(height: 10),
+              _buildCloseButton(context),
               Text(
                 '민족의 아리아',
                 style: TextStyle(
@@ -113,6 +114,24 @@ class SongDetailPage extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCloseButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 16.0),
+      child: Container(
+        alignment: Alignment.topRight,
+        child: IconButton(
+          icon: Icon(
+            Icons.keyboard_arrow_down,
+            size: 50,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
     );
