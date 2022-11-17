@@ -14,7 +14,12 @@ class LyricDetailPage extends StatelessWidget {
               children: [
                 _buildSongTitle(),
                 Spacer(),
-                Icon(Icons.close, size: 30),
+                InkWell(
+                  child: Icon(Icons.close, size: 30),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
                 SizedBox(width: 16),
               ],
             ),

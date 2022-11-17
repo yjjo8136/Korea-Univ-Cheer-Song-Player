@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SongTile extends StatelessWidget {
+  final bool playButtonIsVisible;
+
+  const SongTile({this.playButtonIsVisible = true});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,7 +41,7 @@ class SongTile extends StatelessWidget {
             ),
           ),
           Spacer(),
-          Icon(Icons.play_arrow, size: 45),
+          playButtonIsVisible ? Icon(Icons.play_arrow, size: 45) : Container(),
           Icon(Icons.more_vert, size: 45),
           SizedBox(width: 10),
         ],
