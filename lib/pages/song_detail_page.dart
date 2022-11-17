@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:korea_univ_cheer_song_player/pages/lyric_detail_page.dart';
 
 class SongDetailPage extends StatelessWidget {
   @override
@@ -31,21 +32,35 @@ class SongDetailPage extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
               SizedBox(height: 20),
-              Text(
-                '자 지축을 박차고 자 포효하라 그대',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              InkWell(
+                child: Column(
+                  children: [
+                    Text(
+                      '자 지축을 박차고 자 포효하라 그대',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      '조국의 영원한 고동이 되리라',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0x80000000),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(height: 5),
-              Text(
-                '조국의 영원한 고동이 되리라',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0x80000000),
-                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LyricDetailPage(),
+                    ),
+                  );
+                },
               ),
               SizedBox(height: 30),
               Row(
