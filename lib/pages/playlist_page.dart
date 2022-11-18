@@ -10,9 +10,23 @@ class PlaylistPage extends StatelessWidget {
         body: Column(
           children: [
             SizedBox(height: 15),
-            Text(
-              '플레이리스트',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            Stack(
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    '플레이리스트',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: _buildCloseButton(context),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -43,6 +57,24 @@ class PlaylistPage extends StatelessWidget {
             ),
             PlaylistPlayBar(isLyricPage: false),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCloseButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 16.0),
+      child: Container(
+        alignment: Alignment.topRight,
+        child: IconButton(
+          icon: Icon(
+            Icons.keyboard_arrow_down,
+            size: 50,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
     );
