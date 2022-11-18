@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:korea_univ_cheer_song_player/components/more_info_bottom_sheet.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -80,7 +81,7 @@ class HomePage extends StatelessWidget {
             ),
             Spacer(),
             Icon(Icons.play_arrow, size: 30),
-            Icon(Icons.more_vert, size: 30),
+            MoreInfoBottomSheet(size: 30),
             SizedBox(width: 10),
           ],
         ),

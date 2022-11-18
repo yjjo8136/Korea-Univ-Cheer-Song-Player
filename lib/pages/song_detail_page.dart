@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:korea_univ_cheer_song_player/components/more_info_bottom_sheet.dart';
 import 'package:korea_univ_cheer_song_player/pages/lyric_detail_page.dart';
 
 class SongDetailPage extends StatelessWidget {
@@ -69,7 +70,7 @@ class SongDetailPage extends StatelessWidget {
                 children: [
                   Icon(Icons.favorite_border, size: 50),
                   SizedBox(width: 50),
-                  Icon(Icons.more_vert, size: 50),
+                  MoreInfoBottomSheet(size: 50),
                 ],
               ),
               SizedBox(height: 25),
