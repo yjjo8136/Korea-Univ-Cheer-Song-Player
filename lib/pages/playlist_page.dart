@@ -41,7 +41,7 @@ class PlaylistPage extends StatelessWidget {
                 ],
               ),
             ),
-            PlaylistPlayBar(),
+            PlaylistPlayBar(isLyricPage: false),
           ],
         ),
       ),
