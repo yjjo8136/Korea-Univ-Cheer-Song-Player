@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.korea_univ_cheer_song_player">
    <application
-        android:label="korea_univ_cheer_song_player"
+        android:label="고려대학교 응원가"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
