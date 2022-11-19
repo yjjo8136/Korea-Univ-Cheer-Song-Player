@@ -60,40 +60,43 @@ class MoreInfoBottomSheet extends StatelessWidget {
           SizedBox(height: 30),
           InkWell(
             child: Container(
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Text(
-                    '가사 보기',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                )),
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  '가사 보기',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ),
             onTap: () {},
           ),
           Divider(),
           InkWell(
             child: Container(
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Text(
-                    '응원 동작 보기',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                )),
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  '응원 동작 보기',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ),
             onTap: () {},
           ),
           Divider(),
           InkWell(
             child: Container(
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Text(
-                    '재생 목록에 담기',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                )),
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  '재생 목록에 담기',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ),
             onTap: () {},
           ),
         ],

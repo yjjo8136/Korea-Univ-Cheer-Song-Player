@@ -1,8 +1,23 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:korea_univ_cheer_song_player/components/audio_file.dart';
 import 'package:korea_univ_cheer_song_player/components/more_info_bottom_sheet.dart';
 import 'package:korea_univ_cheer_song_player/pages/lyric_detail_page.dart';
 
-class SongDetailPage extends StatelessWidget {
+class SongDetailPage extends StatefulWidget {
+  @override
+  State<SongDetailPage> createState() => _SongDetailPageState();
+}
+
+class _SongDetailPageState extends State<SongDetailPage> {
+  late AudioPlayer advancedPlayer;
+
+  @override
+  void initState() {
+    super.initState();
+    advancedPlayer = AudioPlayer();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -74,45 +89,7 @@ class SongDetailPage extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 25),
-              Container(width: 320, height: 5, color: Colors.grey),
-              SizedBox(height: 5),
-              Row(
-                children: [
-                  SizedBox(width: 20),
-                  Text(
-                    '00:48',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF7C001A),
-                    ),
-                  ),
-                  Spacer(),
-                  Text(
-                    '02:22',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0x80000000),
-                    ),
-                  ),
-                  SizedBox(width: 20),
-                ],
-              ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Icon(Icons.repeat, size: 40),
-                  Spacer(),
-                  Icon(Icons.skip_previous, size: 40),
-                  Spacer(),
-                  Icon(Icons.play_arrow, size: 60),
-                  Spacer(),
-                  Icon(Icons.skip_next, size: 40),
-                  Spacer(),
-                  Icon(Icons.shuffle, size: 40),
-                ],
-              ),
+              AudioFile(advancedPlayer: advancedPlayer),
             ],
           ),
         ),
