@@ -88,7 +88,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
                   MoreInfoBottomSheet(size: 50),
                 ],
               ),
-              SizedBox(height: 25),
+              SizedBox(height: 10),
               AudioFile(advancedPlayer: advancedPlayer),
             ],
           ),

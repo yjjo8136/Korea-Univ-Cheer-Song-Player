@@ -16,7 +16,8 @@ class _AudioFileState extends State<AudioFile> {
   final String path = 'aria.mp3';
   bool isPlaying = false;
   bool isPaused = false;
-  bool isLoop = false;
+  bool isRepeat = false;
+  Color repeatButtonColor = Colors.black;
   List<IconData> _icons = [
     Icons.play_arrow,
     Icons.pause,
@@ -38,6 +39,17 @@ class _AudioFileState extends State<AudioFile> {
     });
 
     widget.advancedPlayer.setSource(AssetSource(path));
+    widget.advancedPlayer.onPlayerComplete.listen((event) {
+      setState(() {
+        _position = Duration(seconds: 0);
+        if (isRepeat == true) {
+          isPlaying = true;
+        } else {
+          isPlaying = false;
+          isRepeat = false;
+        }
+      });
+    });
   }
 
   @override
@@ -86,7 +98,24 @@ class _AudioFileState extends State<AudioFile> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Icon(Icons.repeat, size: 40),
+            InkWell(
+              child: Icon(Icons.repeat, size: 40, color: repeatButtonColor),
+              onTap: () {
+                if (isRepeat == false) {
+                  widget.advancedPlayer.setReleaseMode(ReleaseMode.loop);
+                  setState(() {
+                    isRepeat = true;
+                    repeatButtonColor = Color(0xFF7C001A);
+                  });
+                } else if (isRepeat == true) {
+                  widget.advancedPlayer.setReleaseMode(ReleaseMode.release);
+                  setState(() {
+                    isRepeat = false;
+                    repeatButtonColor = Colors.black;
+                  });
+                }
+              },
+            ),
             Icon(Icons.skip_previous, size: 40),
             InkWell(
               child: Icon(isPlaying == false ? _icons[0] : _icons[1], size: 60),
