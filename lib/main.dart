@@ -12,8 +12,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<LikedNotifier>(
-      create: (context) => LikedNotifier(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<LikedNotifier>(
+          create: (context) => LikedNotifier(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFD7C9B1)),
