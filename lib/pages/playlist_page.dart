@@ -46,12 +46,11 @@ class PlaylistPage extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
-                  SongTile(playButtonIsVisible: false),
-                  SongTile(playButtonIsVisible: false),
-                  SongTile(playButtonIsVisible: false),
-                  SongTile(playButtonIsVisible: false),
-                  SongTile(playButtonIsVisible: false),
-                  SongTile(playButtonIsVisible: false),
+                  SongTile(
+                    title: '민족의 아리아',
+                    artist: '고려대학교',
+                    playButtonIsVisible: false,
+                  ),
                 ],
               ),
             ),

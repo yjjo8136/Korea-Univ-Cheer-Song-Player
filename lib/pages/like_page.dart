@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/song_tile.dart';
+import 'package:korea_univ_cheer_song_player/saved_notifier.dart';
+import 'package:provider/provider.dart';
 
 class LikePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final likedSongList = context.watch<SavedNotifier>().likedSongList;
+
     return Scaffold(
       body: SafeArea(
         child: Scaffold(
@@ -17,17 +21,16 @@ class LikePage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Expanded(
-                child: ListView(
-                  children: [
-                    SongTile(),
-                    SongTile(),
-                    SongTile(),
-                    SongTile(),
-                    SongTile(),
-                    SongTile(),
-                  ],
+                child: ListView.builder(
+                  itemCount: likedSongList.length,
+                  itemBuilder: (context, index) {
+                    return SongTile(
+                      title: likedSongList[index][0],
+                      artist: likedSongList[index][1],
+                    );
+                  },
                 ),
-              )
+              ),
             ],
           ),
         ),

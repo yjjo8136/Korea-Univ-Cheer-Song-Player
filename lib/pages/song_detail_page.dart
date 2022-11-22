@@ -85,7 +85,11 @@ class _SongDetailPageState extends State<SongDetailPage> {
                 children: [
                   Icon(Icons.favorite_border, size: 50),
                   SizedBox(width: 50),
-                  MoreInfoBottomSheet(size: 50),
+                  MoreInfoBottomSheet(
+                    title: '민족의 아리아',
+                    artist: '고려대학교',
+                    size: 50,
+                  ),
                 ],
               ),
               SizedBox(height: 10),

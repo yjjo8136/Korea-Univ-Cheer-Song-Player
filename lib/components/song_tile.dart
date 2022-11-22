@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/more_info_bottom_sheet.dart';
 
 class SongTile extends StatelessWidget {
+  final String title;
+  final String artist;
   final bool playButtonIsVisible;
 
-  const SongTile({this.playButtonIsVisible = true});
+  const SongTile(
+      {required this.title,
+      required this.artist,
+      this.playButtonIsVisible = true});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class SongTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '민족의 아리아',
+                  title,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -31,7 +36,7 @@ class SongTile extends StatelessWidget {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  '고려대학교',
+                  artist,
                   style: TextStyle(
                     color: Color(0x4D000000),
                     fontSize: 14,
@@ -43,7 +48,7 @@ class SongTile extends StatelessWidget {
           ),
           Spacer(),
           playButtonIsVisible ? Icon(Icons.play_arrow, size: 45) : Container(),
-          MoreInfoBottomSheet(size: 45),
+          MoreInfoBottomSheet(title: title, artist: artist, size: 45),
           SizedBox(width: 10),
         ],
       ),

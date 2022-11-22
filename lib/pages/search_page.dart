@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/song_tile.dart';
+import 'package:korea_univ_cheer_song_player/song_list.dart';
 
 class SearchPage extends StatelessWidget {
   @override
@@ -26,17 +27,16 @@ class SearchPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ListView(
-                children: [
-                  SongTile(),
-                  SongTile(),
-                  SongTile(),
-                  SongTile(),
-                  SongTile(),
-                  SongTile(),
-                ],
+              child: ListView.builder(
+                itemCount: songInfoList.length,
+                itemBuilder: (context, index) {
+                  return SongTile(
+                    title: songInfoList[index][0],
+                    artist: songInfoList[index][1],
+                  );
+                },
               ),
-            )
+            ),
           ],
         ),
       ),

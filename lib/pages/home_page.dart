@@ -81,7 +81,7 @@ class HomePage extends StatelessWidget {
             ),
             Spacer(),
             Icon(Icons.play_arrow, size: 30),
-            MoreInfoBottomSheet(size: 30),
+            MoreInfoBottomSheet(title: '민족의 아리아', artist: '고려대학교', size: 30),
             SizedBox(width: 10),
           ],
         ),

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:korea_univ_cheer_song_player/saved_notifier.dart';
+import 'package:provider/provider.dart';
 
 class MoreInfoBottomSheet extends StatelessWidget {
+  final String title;
+  final String artist;
   final double size;
 
-  const MoreInfoBottomSheet({required this.size});
+  const MoreInfoBottomSheet(
+      {required this.title, required this.artist, required this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +27,8 @@ class MoreInfoBottomSheet extends StatelessWidget {
   }
 
   Widget _buildBottomSheetContext(BuildContext context) {
+    final savedNotifier = context.watch<SavedNotifier>();
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -32,14 +39,14 @@ class MoreInfoBottomSheet extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '민족의 아리아',
+                    title,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    '고려대학교',
+                    artist,
                     style: TextStyle(
                       fontSize: 16,
                     ),
@@ -47,7 +54,16 @@ class MoreInfoBottomSheet extends StatelessWidget {
                 ],
               ),
               Spacer(),
-              Icon(Icons.favorite_border, size: 30),
+              InkWell(
+                child: Icon(
+                    savedNotifier.isLiked([title, artist])
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    size: 30),
+                onTap: () {
+                  savedNotifier.toggleLikedSong([title, artist]);
+                },
+              ),
               SizedBox(width: 20),
               IconButton(
                 icon: Icon(Icons.close, size: 30),
