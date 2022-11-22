@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/song_tile.dart';
-import 'package:korea_univ_cheer_song_player/saved_notifier.dart';
+import 'package:korea_univ_cheer_song_player/liked_notifier.dart';
 import 'package:provider/provider.dart';
 
 class LikePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final likedSongList = context.watch<SavedNotifier>().likedSongList;
+    final likedSongList = context.watch<LikedNotifier>().likedSongList;
 
     return Scaffold(
       body: SafeArea(

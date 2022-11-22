@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SavedNotifier extends ChangeNotifier {
+class LikedNotifier extends ChangeNotifier {
   final List<List<String>> _likedSongList = [];
 
   void toggleLikedSong(List<String> newLikedSong) {

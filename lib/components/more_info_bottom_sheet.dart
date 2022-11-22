@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:korea_univ_cheer_song_player/saved_notifier.dart';
+import 'package:korea_univ_cheer_song_player/liked_notifier.dart';
 import 'package:provider/provider.dart';
 
 class MoreInfoBottomSheet extends StatelessWidget {
@@ -27,7 +27,7 @@ class MoreInfoBottomSheet extends StatelessWidget {
   }
 
   Widget _buildBottomSheetContext(BuildContext context) {
-    final savedNotifier = context.watch<SavedNotifier>();
+    final savedNotifier = context.watch<LikedNotifier>();
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
