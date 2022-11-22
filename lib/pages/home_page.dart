@@ -22,14 +22,9 @@ class HomePage extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
-                  _buildSongTile(),
-                  _buildSongTile(),
-                  _buildSongTile(),
-                  _buildSongTile(),
-                  _buildSongTile(),
-                  _buildSongTile(),
-                  _buildSongTile(),
-                  _buildSongTile(),
+                  _buildSongTile('1', '민족의 아리아', '고려대학교'),
+                  _buildSongTile('2', '뱃노래', '고려대학교'),
+                  _buildSongTile('3', 'Forever', '고려대학교'),
                 ],
               ),
             ),
@@ -39,7 +34,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildSongTile() {
+  Widget _buildSongTile(String rank, String title, String artist) {
     return Padding(
       padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 16),
       child: Container(
@@ -60,7 +55,7 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '1    민족의 아리아',
+                    rank + '    ' + title,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
@@ -69,7 +64,7 @@ class HomePage extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    '          고려대학교',
+                    '          ' + artist,
                     style: TextStyle(
                       color: Color(0x4D000000),
                       fontSize: 14,
@@ -81,7 +76,7 @@ class HomePage extends StatelessWidget {
             ),
             Spacer(),
             Icon(Icons.play_arrow, size: 30),
-            MoreInfoBottomSheet(title: '민족의 아리아', artist: '고려대학교', size: 30),
+            MoreInfoBottomSheet(title: title, artist: artist, size: 30),
             SizedBox(width: 10),
           ],
         ),
