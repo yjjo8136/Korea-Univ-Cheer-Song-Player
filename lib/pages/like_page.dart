@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/song_tile.dart';
-import 'package:korea_univ_cheer_song_player/liked_notifier.dart';
+import 'package:korea_univ_cheer_song_player/notifier/liked_notifier.dart';
 import 'package:provider/provider.dart';
 
 class LikePage extends StatelessWidget {
