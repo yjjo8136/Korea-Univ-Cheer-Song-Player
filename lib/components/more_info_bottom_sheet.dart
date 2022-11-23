@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/notifier/liked_notifier.dart';
+import 'package:korea_univ_cheer_song_player/notifier/playlist_notifier.dart';
 import 'package:provider/provider.dart';
 
 class MoreInfoBottomSheet extends StatelessWidget {
@@ -28,6 +29,7 @@ class MoreInfoBottomSheet extends StatelessWidget {
 
   Widget _buildBottomSheetContext(BuildContext context) {
     final savedNotifier = context.watch<LikedNotifier>();
+    final playlistNotifier = context.watch<PlaylistNotifier>();
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -113,7 +115,9 @@ class MoreInfoBottomSheet extends StatelessWidget {
                 ),
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              playlistNotifier.addPlaylist([title, artist]);
+            },
           ),
         ],
       ),

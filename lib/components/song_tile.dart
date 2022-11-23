@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/more_info_bottom_sheet.dart';
+import 'package:korea_univ_cheer_song_player/notifier/playlist_notifier.dart';
+import 'package:provider/provider.dart';
 
 class SongTile extends StatelessWidget {
   final String title;
@@ -47,11 +49,24 @@ class SongTile extends StatelessWidget {
             ),
           ),
           Spacer(),
-          playButtonIsVisible ? Icon(Icons.play_arrow, size: 45) : Container(),
+          playButtonIsVisible ? _buildPlayButton() : Container(),
           MoreInfoBottomSheet(title: title, artist: artist, size: 45),
           SizedBox(width: 10),
         ],
       ),
+    );
+  }
+
+  Widget _buildPlayButton() {
+    return Consumer<PlaylistNotifier>(
+      builder: (context, playlistNotifier, child) {
+        return InkWell(
+          child: Icon(Icons.play_arrow, size: 45),
+          onTap: () {
+            playlistNotifier.addPlaylist([title, artist]);
+          },
+        );
+      },
     );
   }
 }

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/playlist_play_bar.dart';
 import 'package:korea_univ_cheer_song_player/components/song_tile.dart';
+import 'package:korea_univ_cheer_song_player/notifier/playlist_notifier.dart';
+import 'package:provider/provider.dart';
 
 class PlaylistPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final playlist = context.watch<PlaylistNotifier>().playlist;
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -44,14 +47,14 @@ class PlaylistPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Expanded(
-              child: ListView(
-                children: [
-                  SongTile(
-                    title: '민족의 아리아',
-                    artist: '고려대학교',
-                    playButtonIsVisible: false,
-                  ),
-                ],
+              child: ListView.builder(
+                itemCount: playlist.length,
+                itemBuilder: (context, index) {
+                  return SongTile(
+                    title: playlist[index][0],
+                    artist: playlist[index][1],
+                  );
+                },
               ),
             ),
             PlaylistPlayBar(isLyricPage: false),
