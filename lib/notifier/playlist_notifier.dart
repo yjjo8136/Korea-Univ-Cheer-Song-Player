@@ -18,6 +18,19 @@ class PlaylistNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  void deletePlaylist(List<String> deleteSong) {
+    if (InPlaylist(deleteSong)) {
+      for (int i = 0; i < _playlist.length; i++) {
+        if (_playlist[i][0] == deleteSong[0] &&
+            _playlist[i][1] == deleteSong[1]) {
+          _playlist.removeAt(i);
+          break;
+        }
+      }
+    } else {}
+    notifyListeners();
+  }
+
   bool InPlaylist(List<String> songInfo) {
     bool alreadyIn = false;
     _playlist.forEach((element) {
