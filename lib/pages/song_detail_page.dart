@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/audio_file.dart';
 import 'package:korea_univ_cheer_song_player/components/more_info_bottom_sheet.dart';
@@ -10,14 +9,6 @@ class SongDetailPage extends StatefulWidget {
 }
 
 class _SongDetailPageState extends State<SongDetailPage> {
-  late AudioPlayer advancedPlayer;
-
-  @override
-  void initState() {
-    super.initState();
-    advancedPlayer = AudioPlayer();
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -93,7 +84,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
                 ],
               ),
               SizedBox(height: 10),
-              AudioFile(advancedPlayer: advancedPlayer),
+              AudioFile(),
             ],
           ),
         ),

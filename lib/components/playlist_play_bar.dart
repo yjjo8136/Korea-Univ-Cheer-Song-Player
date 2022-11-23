@@ -1,34 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
 import 'package:korea_univ_cheer_song_player/pages/song_detail_page.dart';
+import 'package:provider/provider.dart';
 
-class PlaylistPlayBar extends StatelessWidget {
+class PlaylistPlayBar extends StatefulWidget {
   final bool isLyricPage;
 
   const PlaylistPlayBar({this.isLyricPage = true});
 
   @override
+  State<PlaylistPlayBar> createState() => _PlaylistPlayBarState();
+}
+
+class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 70,
-      color: Color(0xFF7C001A),
-      child: Row(
-        children: [
-          Icon(Icons.repeat, size: 40),
-          Spacer(),
-          Icon(Icons.skip_previous, size: 40),
-          Spacer(),
-          Icon(Icons.play_arrow, size: 60),
-          Spacer(),
-          Icon(Icons.skip_next, size: 40),
-          Spacer(),
-          Icon(Icons.shuffle, size: 40),
-          Spacer(),
-          SizedBox(width: 10),
-          isLyricPage ? _buildPlaylistButton(context) : _buildSongDetailButton(context),
-          SizedBox(width: 10),
-        ],
-      ),
+    final audioPlayer = context.watch<AudioPlayerNotifier>();
+    return Column(
+      children: [
+        SizedBox(
+          height: 4,
+          width: double.infinity,
+          child: Slider(
+            activeColor: Color(0xFF7C001A),
+            inactiveColor: Colors.grey,
+            value: audioPlayer.position.inSeconds.toDouble(),
+            min: 0.0,
+            max: audioPlayer.duration.inSeconds.toDouble(),
+            onChanged: (double value) {
+              setState(() {
+                Duration newDuration = Duration(seconds: value.toInt());
+                audioPlayer.audioPlayer.seek(newDuration);
+                value = value;
+              });
+            },
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          height: 70,
+          color: Color(0xFF7C001A),
+          child: Row(
+            children: [
+              Icon(Icons.repeat, size: 40),
+              Spacer(),
+              Icon(Icons.skip_previous, size: 40),
+              Spacer(),
+              InkWell(
+                child: Icon(
+                    audioPlayer.isPlaying == false
+                        ? Icons.play_arrow
+                        : Icons.pause,
+                    size: 60),
+                onTap: () async {
+                  if (audioPlayer.isPlaying == false) {
+                    await audioPlayer.playAudio(audioPlayer.songPath);
+                  } else if (audioPlayer.isPlaying == true) {
+                    audioPlayer.pauseAudio();
+                  }
+                },
+              ),
+              Spacer(),
+              Icon(Icons.skip_next, size: 40),
+              Spacer(),
+              Icon(Icons.shuffle, size: 40),
+              Spacer(),
+              SizedBox(width: 10),
+              widget.isLyricPage
+                  ? _buildPlaylistButton(context)
+                  : _buildSongDetailButton(context),
+              SizedBox(width: 10),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -42,12 +87,11 @@ class PlaylistPlayBar extends StatelessWidget {
           ),
         );
       },
-      child: Image.asset('assets/korea_univ_logo.png',
-          height: 45, width: 45),
+      child: Image.asset('assets/korea_univ_logo.png', height: 45, width: 45),
     );
   }
 
-  Widget _buildPlaylistButton(BuildContext context){
+  Widget _buildPlaylistButton(BuildContext context) {
     return InkWell(
       onTap: () {
         Navigator.pop(context);
