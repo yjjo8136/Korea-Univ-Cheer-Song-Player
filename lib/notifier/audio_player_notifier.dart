@@ -5,7 +5,7 @@ class AudioPlayerNotifier extends ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
   Duration _duration = new Duration();
   Duration _position = new Duration();
-  String _songPath = 'aria.mp3';
+  String _songPath = 'minjoguiAria .mp3';
   bool _isPlaying = false;
   bool _isRepeat = false;
 
