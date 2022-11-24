@@ -13,6 +13,8 @@ class PlaylistPlayBar extends StatefulWidget {
 }
 
 class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
+  Color repeatButtonColor = Colors.black;
+
   @override
   Widget build(BuildContext context) {
     final audioPlayer = context.watch<AudioPlayerNotifier>();
@@ -42,7 +44,16 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
           color: Color(0xFF7C001A),
           child: Row(
             children: [
-              Icon(Icons.repeat, size: 40),
+              InkWell(
+                child: Icon(Icons.repeat,
+                    size: 40,
+                    color: audioPlayer.isRepeat
+                        ? Color(0xFF7C001A)
+                        : Colors.black),
+                onTap: () {
+                  audioPlayer.toggleRepeatAudio();
+                },
+              ),
               Spacer(),
               Icon(Icons.skip_previous, size: 40),
               Spacer(),

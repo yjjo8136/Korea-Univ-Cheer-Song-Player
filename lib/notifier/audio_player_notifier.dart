@@ -42,7 +42,6 @@ class AudioPlayerNotifier extends ChangeNotifier {
         _isPlaying = true;
       } else {
         _isPlaying = false;
-        _isRepeat = false;
       }
       notifyListeners();
     });
@@ -61,6 +60,17 @@ class AudioPlayerNotifier extends ChangeNotifier {
 
   pauseAudio() {
     _audioPlayer.pause();
+    notifyListeners();
+  }
+
+  toggleRepeatAudio() {
+    if (_isRepeat == false) {
+      _isRepeat = true;
+      _audioPlayer.setReleaseMode(ReleaseMode.loop);
+    } else if (_isRepeat == true) {
+      _isRepeat = false;
+      _audioPlayer.setReleaseMode(ReleaseMode.release);
+    }
     notifyListeners();
   }
 

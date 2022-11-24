@@ -9,10 +9,6 @@ class AudioFile extends StatefulWidget {
 
 class _AudioFileState extends State<AudioFile> {
   Color repeatButtonColor = Colors.black;
-  List<IconData> _icons = [
-    Icons.play_arrow,
-    Icons.pause,
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -62,29 +58,20 @@ class _AudioFileState extends State<AudioFile> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             InkWell(
-              child: Icon(Icons.repeat, size: 40, color: repeatButtonColor),
+              child: Icon(Icons.repeat,
+                  size: 40,
+                  color:
+                      audioPlayer.isRepeat ? Color(0xFF7C001A) : Colors.black),
               onTap: () {
-                /*
-
-                if (audioPlayer.isRepeat == false) {
-                  audioPlayer.audioPlayer.setReleaseMode(ReleaseMode.loop);
-
-                  setState(() {
-                    repeatButtonColor = Color(0xFF7C001A);
-                  });
-                } else if (audioPlayer.isRepeat == true) {
-                  audioPlayer.audioPlayer.setReleaseMode(ReleaseMode.release);
-                  setState(() {
-                    repeatButtonColor = Colors.black;
-                  });
-                }
-                */
+                audioPlayer.toggleRepeatAudio();
               },
             ),
             Icon(Icons.skip_previous, size: 40),
             InkWell(
               child: Icon(
-                  audioPlayer.isPlaying == false ? _icons[0] : _icons[1],
+                  audioPlayer.isPlaying == false
+                      ? Icons.play_arrow
+                      : Icons.pause,
                   size: 60),
               onTap: () async {
                 if (audioPlayer.isPlaying == false) {
