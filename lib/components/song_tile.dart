@@ -8,12 +8,10 @@ import 'package:provider/provider.dart';
 class SongTile extends StatefulWidget {
   final String title;
   final String artist;
-  final bool playButtonIsVisible;
 
   const SongTile({
     required this.title,
     required this.artist,
-    this.playButtonIsVisible = true,
   });
 
   @override
@@ -65,9 +63,7 @@ class _SongTileState extends State<SongTile> {
             ),
           ),
           Spacer(),
-          widget.playButtonIsVisible
-              ? _buildPlayButton(currentSong)
-              : Container(),
+          _buildPlayButton(currentSong),
           MoreInfoBottomSheet(
               title: widget.title, artist: widget.artist, size: 45),
           SizedBox(width: 10),
@@ -83,10 +79,13 @@ class _SongTileState extends State<SongTile> {
           child: Icon(Icons.play_arrow, size: 45),
           onTap: () {
             audioPlayerNotifier.setTitleAndArtist(widget.title, widget.artist);
-            playlistNotifier.addPlaylist(CheerSong(
+            playlistNotifier.addPlaylist(
+              CheerSong(
                 title: widget.title,
                 artist: widget.artist,
-                path: currentSong.path));
+                path: currentSong.path,
+              ),
+            );
             audioPlayerNotifier.playAudio(playlistNotifier.playlist.last.path);
           },
         );
