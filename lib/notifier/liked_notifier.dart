@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:korea_univ_cheer_song_player/song_list.dart';
 
 class LikedNotifier extends ChangeNotifier {
-  final List<List<String>> _likedSongList = [];
+  final List<CheerSong> _likedSongList = [];
 
-  void toggleLikedSong(List<String> newLikedSong) {
+  void toggleLikedSong(CheerSong newLikedSong) {
     if (isLiked(newLikedSong)) {
       for (int i = 0; i < _likedSongList.length; i++) {
-        if (_likedSongList[i][0] == newLikedSong[0] &&
-            _likedSongList[i][1] == newLikedSong[1]) {
+        if (_likedSongList[i].title == newLikedSong.title &&
+            _likedSongList[i].artist == newLikedSong.artist) {
           _likedSongList.removeAt(i);
           break;
         }
@@ -18,15 +19,16 @@ class LikedNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool isLiked(List<String> songInfo) {
+  bool isLiked(CheerSong songInfo) {
     bool liked = false;
     _likedSongList.forEach((element) {
-      if (element[0] == songInfo[0] && element[1] == songInfo[1]) {
+      if (element.title == songInfo.title &&
+          element.artist == songInfo.artist) {
         liked = true;
       }
     });
     return liked;
   }
 
-  List<List<String>> get likedSongList => _likedSongList;
+  List<CheerSong> get likedSongList => _likedSongList;
 }

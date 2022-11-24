@@ -80,28 +80,32 @@ class _BottomPlayBarState extends State<BottomPlayBar> {
   }
 
   Widget _buildPlayingSongInfo() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '민족의 아리아',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+    return Consumer<AudioPlayerNotifier>(
+      builder: (context, audioPlayerNotifier, child) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                audioPlayerNotifier.title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                audioPlayerNotifier.artist,
+                style: TextStyle(
+                  color: Color(0x80FFFFFF),
+                  fontSize: 16,
+                ),
+              ),
+            ],
           ),
-          Text(
-            '고려대학교',
-            style: TextStyle(
-              color: Color(0x80FFFFFF),
-              fontSize: 16,
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

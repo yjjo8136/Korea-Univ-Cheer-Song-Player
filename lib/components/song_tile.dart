@@ -1,20 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/more_info_bottom_sheet.dart';
+import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
 import 'package:korea_univ_cheer_song_player/notifier/playlist_notifier.dart';
+import 'package:korea_univ_cheer_song_player/song_list.dart';
 import 'package:provider/provider.dart';
 
-class SongTile extends StatelessWidget {
+class SongTile extends StatefulWidget {
   final String title;
   final String artist;
   final bool playButtonIsVisible;
 
-  const SongTile(
-      {required this.title,
-      required this.artist,
-      this.playButtonIsVisible = true});
+  const SongTile({
+    required this.title,
+    required this.artist,
+    this.playButtonIsVisible = true,
+  });
 
   @override
+  State<SongTile> createState() => _SongTileState();
+}
+
+class _SongTileState extends State<SongTile> {
+  @override
   Widget build(BuildContext context) {
+    late CheerSong currentSong;
+    for (int i = 0; i < songInfoList.length; i++) {
+      if (songInfoList[i].title == widget.title) {
+        currentSong = songInfoList[i];
+        break;
+      }
+    }
+
     return Container(
       width: double.infinity,
       height: 80,
@@ -29,7 +45,7 @@ class SongTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  widget.title,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -38,7 +54,7 @@ class SongTile extends StatelessWidget {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  artist,
+                  widget.artist,
                   style: TextStyle(
                     color: Color(0x4D000000),
                     fontSize: 14,
@@ -49,21 +65,29 @@ class SongTile extends StatelessWidget {
             ),
           ),
           Spacer(),
-          playButtonIsVisible ? _buildPlayButton() : Container(),
-          MoreInfoBottomSheet(title: title, artist: artist, size: 45),
+          widget.playButtonIsVisible
+              ? _buildPlayButton(currentSong)
+              : Container(),
+          MoreInfoBottomSheet(
+              title: widget.title, artist: widget.artist, size: 45),
           SizedBox(width: 10),
         ],
       ),
     );
   }
 
-  Widget _buildPlayButton() {
-    return Consumer<PlaylistNotifier>(
-      builder: (context, playlistNotifier, child) {
+  Widget _buildPlayButton(CheerSong currentSong) {
+    return Consumer2<PlaylistNotifier, AudioPlayerNotifier>(
+      builder: (context, playlistNotifier, audioPlayerNotifier, child) {
         return InkWell(
           child: Icon(Icons.play_arrow, size: 45),
           onTap: () {
-            playlistNotifier.addPlaylist([title, artist]);
+            audioPlayerNotifier.setTitleAndArtist(widget.title, widget.artist);
+            playlistNotifier.addPlaylist(CheerSong(
+                title: widget.title,
+                artist: widget.artist,
+                path: currentSong.path));
+            audioPlayerNotifier.playAudio(playlistNotifier.playlist.last.path);
           },
         );
       },

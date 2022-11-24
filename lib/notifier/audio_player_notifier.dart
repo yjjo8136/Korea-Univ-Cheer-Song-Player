@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 
 class AudioPlayerNotifier extends ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
+  final AudioCache _audioCache = AudioCache();
   Duration _duration = new Duration();
   Duration _position = new Duration();
   String _songPath = 'minjoguiAria.mp3';
+  String _title = '민족의 아리아';
+  String _artist = '고려대학교';
   bool _isPlaying = false;
   bool _isRepeat = false;
 
@@ -46,12 +49,26 @@ class AudioPlayerNotifier extends ChangeNotifier {
     });
   }
 
-  playAudio(String urlPath) {
-    _audioPlayer.play(AssetSource(urlPath));
+  playAudio(String urlPath) async {
+    if (_songPath != urlPath) {
+      _songPath = urlPath;
+      _audioPlayer.pause();
+      await _audioPlayer.play(AssetSource(urlPath));
+    } else {
+      await _audioPlayer.play(AssetSource(urlPath));
+    }
+    notifyListeners();
   }
 
   pauseAudio() {
-    audioPlayer.pause();
+    _audioPlayer.pause();
+    notifyListeners();
+  }
+
+  setTitleAndArtist(String title, String artist) {
+    _title = title;
+    _artist = artist;
+    notifyListeners();
   }
 
   AudioPlayer get audioPlayer => _audioPlayer;
@@ -60,4 +77,6 @@ class AudioPlayerNotifier extends ChangeNotifier {
   bool get isPlaying => _isPlaying;
   bool get isRepeat => _isRepeat;
   String get songPath => _songPath;
+  String get title => _title;
+  String get artist => _artist;
 }

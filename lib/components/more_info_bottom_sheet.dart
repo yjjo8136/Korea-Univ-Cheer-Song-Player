@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/notifier/liked_notifier.dart';
 import 'package:korea_univ_cheer_song_player/notifier/playlist_notifier.dart';
+import 'package:korea_univ_cheer_song_player/song_list.dart';
 import 'package:provider/provider.dart';
+
+late CheerSong _currentSong;
 
 class MoreInfoBottomSheet extends StatelessWidget {
   final String title;
   final String artist;
   final double size;
 
-  const MoreInfoBottomSheet(
-      {required this.title, required this.artist, required this.size});
+  const MoreInfoBottomSheet({
+    required this.title,
+    required this.artist,
+    required this.size,
+  });
 
   @override
   Widget build(BuildContext context) {
+    songInfoList.forEach((element) {
+      if (element.title == title && element.artist == artist) {
+        _currentSong = element;
+      }
+    });
+
     return InkWell(
       child: Icon(Icons.more_vert, size: size),
       onTap: () {
@@ -28,7 +40,7 @@ class MoreInfoBottomSheet extends StatelessWidget {
   }
 
   Widget _buildBottomSheetContext(BuildContext context) {
-    final savedNotifier = context.watch<LikedNotifier>();
+    final likedNotifier = context.watch<LikedNotifier>();
     final playlistNotifier = context.watch<PlaylistNotifier>();
 
     return Padding(
@@ -58,12 +70,24 @@ class MoreInfoBottomSheet extends StatelessWidget {
               Spacer(),
               InkWell(
                 child: Icon(
-                    savedNotifier.isLiked([title, artist])
+                    likedNotifier.isLiked(
+                      CheerSong(
+                        title: title,
+                        artist: artist,
+                        path: _currentSong.path,
+                      ),
+                    )
                         ? Icons.favorite
                         : Icons.favorite_border,
                     size: 30),
                 onTap: () {
-                  savedNotifier.toggleLikedSong([title, artist]);
+                  likedNotifier.toggleLikedSong(
+                    CheerSong(
+                      title: title,
+                      artist: artist,
+                      path: _currentSong.path,
+                    ),
+                  );
                 },
               ),
               SizedBox(width: 20),
@@ -116,7 +140,8 @@ class MoreInfoBottomSheet extends StatelessWidget {
               ),
             ),
             onTap: () {
-              playlistNotifier.addPlaylist([title, artist]);
+              playlistNotifier.addPlaylist(CheerSong(
+                  title: title, artist: artist, path: _currentSong.path));
             },
           ),
         ],

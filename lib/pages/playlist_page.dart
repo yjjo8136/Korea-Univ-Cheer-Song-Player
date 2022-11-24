@@ -51,8 +51,9 @@ class PlaylistPage extends StatelessWidget {
                 itemCount: playlist.length,
                 itemBuilder: (context, index) {
                   return SongTile(
-                    title: playlist[index][0],
-                    artist: playlist[index][1],
+                    title: playlist[index].title,
+                    artist: playlist[index].artist,
+                    playButtonIsVisible: false,
                   );
                 },
               ),

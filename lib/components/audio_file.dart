@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
 import 'package:provider/provider.dart';
@@ -65,6 +64,8 @@ class _AudioFileState extends State<AudioFile> {
             InkWell(
               child: Icon(Icons.repeat, size: 40, color: repeatButtonColor),
               onTap: () {
+                /*
+
                 if (audioPlayer.isRepeat == false) {
                   audioPlayer.audioPlayer.setReleaseMode(ReleaseMode.loop);
 
@@ -77,6 +78,7 @@ class _AudioFileState extends State<AudioFile> {
                     repeatButtonColor = Colors.black;
                   });
                 }
+                */
               },
             ),
             Icon(Icons.skip_previous, size: 40),

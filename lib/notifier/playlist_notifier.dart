@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:korea_univ_cheer_song_player/song_list.dart';
 
 class PlaylistNotifier extends ChangeNotifier {
-  final List<List<String>> _playlist = [];
+  final List<CheerSong> _playlist = [];
 
-  void addPlaylist(List<String> newSong) {
+  void addPlaylist(CheerSong newSong) {
     if (InPlaylist(newSong)) {
       for (int i = 0; i < _playlist.length; i++) {
-        if (_playlist[i][0] == newSong[0] && _playlist[i][1] == newSong[1]) {
+        if (_playlist[i].title == newSong.title &&
+            _playlist[i].artist == newSong.artist) {
           _playlist.removeAt(i);
           _playlist.add(newSong);
           break;
@@ -18,11 +20,11 @@ class PlaylistNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deletePlaylist(List<String> deleteSong) {
+  void deletePlaylist(CheerSong deleteSong) {
     if (InPlaylist(deleteSong)) {
       for (int i = 0; i < _playlist.length; i++) {
-        if (_playlist[i][0] == deleteSong[0] &&
-            _playlist[i][1] == deleteSong[1]) {
+        if (_playlist[i].title == deleteSong.title &&
+            _playlist[i].artist == deleteSong.artist) {
           _playlist.removeAt(i);
           break;
         }
@@ -31,15 +33,16 @@ class PlaylistNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool InPlaylist(List<String> songInfo) {
+  bool InPlaylist(CheerSong songInfo) {
     bool alreadyIn = false;
     _playlist.forEach((element) {
-      if (element[0] == songInfo[0] && element[1] == songInfo[1]) {
+      if (element.title == songInfo.title &&
+          element.artist == songInfo.artist) {
         alreadyIn = true;
       }
     });
     return alreadyIn;
   }
 
-  List<List<String>> get playlist => _playlist;
+  List<CheerSong> get playlist => _playlist;
 }

@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/song_tile.dart';
 import 'package:korea_univ_cheer_song_player/song_list.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -31,8 +36,8 @@ class SearchPage extends StatelessWidget {
                 itemCount: songInfoList.length,
                 itemBuilder: (context, index) {
                   return SongTile(
-                    title: songInfoList[index][0],
-                    artist: songInfoList[index][1],
+                    title: songInfoList[index].title,
+                    artist: songInfoList[index].artist,
                   );
                 },
               ),

@@ -25,8 +25,8 @@ class LikePage extends StatelessWidget {
                   itemCount: likedSongList.length,
                   itemBuilder: (context, index) {
                     return SongTile(
-                      title: likedSongList[index][0],
-                      artist: likedSongList[index][1],
+                      title: likedSongList[index].title,
+                      artist: likedSongList[index].artist,
                     );
                   },
                 ),
