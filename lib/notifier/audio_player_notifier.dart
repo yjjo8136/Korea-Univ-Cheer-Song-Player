@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 class AudioPlayerNotifier extends ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
-  final AudioCache _audioCache = AudioCache();
   Duration _duration = new Duration();
   Duration _position = new Duration();
   String _songPath = 'minjoguiAria.mp3';

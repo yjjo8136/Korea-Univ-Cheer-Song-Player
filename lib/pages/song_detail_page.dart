@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/audio_file.dart';
 import 'package:korea_univ_cheer_song_player/components/more_info_bottom_sheet.dart';
+import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
+import 'package:korea_univ_cheer_song_player/notifier/liked_notifier.dart';
 import 'package:korea_univ_cheer_song_player/pages/lyric_detail_page.dart';
+import 'package:korea_univ_cheer_song_player/song_list.dart';
+import 'package:provider/provider.dart';
 
 class SongDetailPage extends StatefulWidget {
   @override
@@ -11,6 +15,8 @@ class SongDetailPage extends StatefulWidget {
 class _SongDetailPageState extends State<SongDetailPage> {
   @override
   Widget build(BuildContext context) {
+    final likedNotifier = context.watch<LikedNotifier>();
+    final audioPlayer = context.watch<AudioPlayerNotifier>();
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -20,14 +26,14 @@ class _SongDetailPageState extends State<SongDetailPage> {
               SizedBox(height: 10),
               _buildCloseButton(context),
               Text(
-                '민족의 아리아',
+                audioPlayer.title,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                '고려대학교',
+                audioPlayer.artist,
                 style: TextStyle(
                   fontSize: 16,
                 ),
@@ -74,11 +80,30 @@ class _SongDetailPageState extends State<SongDetailPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.favorite_border, size: 50),
+                  InkWell(
+                    child: Icon(
+                        likedNotifier.isLiked(
+                          CheerSong(
+                            title: audioPlayer.title,
+                            artist: audioPlayer.artist,
+                            path: audioPlayer.songPath,
+                          ),
+                        )
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        size: 30),
+                    onTap: () {likedNotifier.toggleLikedSong(
+                      CheerSong(
+                        title: audioPlayer.title,
+                        artist: audioPlayer.artist,
+                        path: audioPlayer.songPath,
+                      ),
+                    );},
+                  ),
                   SizedBox(width: 50),
                   MoreInfoBottomSheet(
-                    title: '민족의 아리아',
-                    artist: '고려대학교',
+                    title: audioPlayer.title,
+                    artist: audioPlayer.artist,
                     size: 50,
                   ),
                 ],
