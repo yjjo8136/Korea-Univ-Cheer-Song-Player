@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:korea_univ_cheer_song_player/notifier/playlist_notifier.dart';
 import 'package:korea_univ_cheer_song_player/song_list.dart';
 
 class AudioPlayerNotifier extends ChangeNotifier {
@@ -10,6 +11,7 @@ class AudioPlayerNotifier extends ChangeNotifier {
       CheerSong(title: '민족의 아리아', artist: '고려대학교', path: 'minjoguiAria.mp3');
   bool _isPlaying = false;
   bool _isRepeat = false;
+  List<CheerSong> playlist = [];
 
   AudioPlayerNotifier() {
     initAudio();
@@ -38,16 +40,33 @@ class AudioPlayerNotifier extends ChangeNotifier {
 
     _audioPlayer.onPlayerComplete.listen((event) {
       _position = Duration(seconds: 0);
+
+      int index = playlist.length - 1;
+      for (int i = 0; i < playlist.length; i++) {
+        if (playlist[i] == _currentSong) {
+          index = i;
+
+          break;
+        }
+      }
+
       if (_isRepeat == true) {
         _isPlaying = true;
       } else if (_isRepeat == false) {
-        if (true /*다음 노래가 플레이리스트에 있으면*/) {
+        if (index != playlist.length - 1) {
+          _currentSong = playlist[index + 1];
+          _audioPlayer.play(AssetSource(playlist[index + 1].path));
         } else {
           _isPlaying = false;
         }
       }
       notifyListeners();
     });
+  }
+
+  void update(PlaylistNotifier playlistNotifier) {
+    playlist = playlistNotifier.playlist;
+    notifyListeners();
   }
 
   playAudio(CheerSong playingSong) async {
