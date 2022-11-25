@@ -4,30 +4,27 @@ import 'package:korea_univ_cheer_song_player/song_list.dart';
 class LikedNotifier extends ChangeNotifier {
   final List<CheerSong> _likedSongList = [];
 
-  void toggleLikedSong(CheerSong newLikedSong) {
-    if (isLiked(newLikedSong)) {
+  void toggleLikedSong(CheerSong likedSong) {
+    if (isLiked(likedSong)) {
       for (int i = 0; i < _likedSongList.length; i++) {
-        if (_likedSongList[i].title == newLikedSong.title &&
-            _likedSongList[i].artist == newLikedSong.artist) {
+        if (_likedSongList[i] == likedSong) {
           _likedSongList.removeAt(i);
           break;
         }
       }
     } else {
-      _likedSongList.add(newLikedSong);
+      _likedSongList.add(likedSong);
     }
     notifyListeners();
   }
 
-  bool isLiked(CheerSong songInfo) {
-    bool liked = false;
-    _likedSongList.forEach((element) {
-      if (element.title == songInfo.title &&
-          element.artist == songInfo.artist) {
-        liked = true;
+  bool isLiked(CheerSong cheerSong) {
+    for (int i = 0; i < _likedSongList.length; i++) {
+      if (_likedSongList[i] == cheerSong) {
+        return true;
       }
-    });
-    return liked;
+    }
+    return false;
   }
 
   List<CheerSong> get likedSongList => _likedSongList;

@@ -4,8 +4,6 @@ import 'package:korea_univ_cheer_song_player/notifier/playlist_notifier.dart';
 import 'package:korea_univ_cheer_song_player/song_list.dart';
 import 'package:provider/provider.dart';
 
-late CheerSong _currentSong;
-
 class MoreInfoBottomSheet extends StatelessWidget {
   final String title;
   final String artist;
@@ -19,9 +17,11 @@ class MoreInfoBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    late CheerSong currentSong;
+
     for (int i = 0; i < songInfoList.length; i++) {
       if (songInfoList[i].title == title) {
-        _currentSong = songInfoList[i];
+        currentSong = songInfoList[i];
         break;
       }
     }
@@ -33,14 +33,14 @@ class MoreInfoBottomSheet extends StatelessWidget {
           backgroundColor: Color(0xFFD7C9B1),
           context: context,
           builder: (BuildContext context) {
-            return _buildBottomSheetContext(context);
+            return _buildBottomSheetContext(context, currentSong);
           },
         );
       },
     );
   }
 
-  Widget _buildBottomSheetContext(BuildContext context) {
+  Widget _buildBottomSheetContext(BuildContext context, CheerSong currentSong) {
     final likedNotifier = context.watch<LikedNotifier>();
     final playlistNotifier = context.watch<PlaylistNotifier>();
 
@@ -71,12 +71,12 @@ class MoreInfoBottomSheet extends StatelessWidget {
               Spacer(),
               InkWell(
                 child: Icon(
-                    likedNotifier.isLiked(_currentSong)
+                    likedNotifier.isLiked(currentSong)
                         ? Icons.favorite
                         : Icons.favorite_border,
                     size: 30),
                 onTap: () {
-                  likedNotifier.toggleLikedSong(_currentSong);
+                  likedNotifier.toggleLikedSong(currentSong);
                 },
               ),
               SizedBox(width: 20),
@@ -129,7 +129,7 @@ class MoreInfoBottomSheet extends StatelessWidget {
               ),
             ),
             onTap: () {
-              playlistNotifier.addPlaylist(_currentSong);
+              playlistNotifier.addPlaylist(currentSong);
             },
           ),
         ],
