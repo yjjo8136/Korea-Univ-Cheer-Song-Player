@@ -78,9 +78,8 @@ class _SongTileState extends State<SongTile> {
         return InkWell(
           child: Icon(Icons.play_arrow, size: 45),
           onTap: () {
-            audioPlayerNotifier.setTitleAndArtist(widget.title, widget.artist);
             playlistNotifier.addPlaylist(currentSong);
-            audioPlayerNotifier.playAudio(playlistNotifier.playlist.last.path);
+            audioPlayerNotifier.playAudio(currentSong);
           },
         );
       },

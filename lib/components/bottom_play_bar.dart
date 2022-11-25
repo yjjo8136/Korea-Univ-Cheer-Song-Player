@@ -49,7 +49,8 @@ class _BottomPlayBarState extends State<BottomPlayBar> {
                     size: 60),
                 onTap: () async {
                   if (audioPlayer.isPlaying == false) {
-                    await audioPlayer.playAudio(audioPlayer.currentSong.path);
+                    await audioPlayer
+                        .playAudioWithPath(audioPlayer.currentSong.path);
                   } else if (audioPlayer.isPlaying == true) {
                     audioPlayer.pauseAudio();
                   }

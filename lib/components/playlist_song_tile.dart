@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/more_info_bottom_sheet.dart';
 import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
-import 'package:korea_univ_cheer_song_player/notifier/playlist_notifier.dart';
 import 'package:korea_univ_cheer_song_player/song_list.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +23,6 @@ class _PlaylistSongTileState extends State<PlaylistSongTile> {
   @override
   Widget build(BuildContext context) {
     final audioPlayer = context.watch<AudioPlayerNotifier>();
-    final playlist = context.watch<PlaylistNotifier>();
 
     late CheerSong currentSong;
     for (int i = 0; i < songInfoList.length; i++) {
@@ -71,8 +69,7 @@ class _PlaylistSongTileState extends State<PlaylistSongTile> {
               ),
             ),
             onTap: () {
-              audioPlayer.setTitleAndArtist(widget.title, widget.artist);
-              audioPlayer.playAudio(currentSong.path);
+              audioPlayer.playAudio(currentSong);
             },
           ),
           Spacer(),

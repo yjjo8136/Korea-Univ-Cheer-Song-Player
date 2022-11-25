@@ -50,13 +50,31 @@ class AudioPlayerNotifier extends ChangeNotifier {
     });
   }
 
-  playAudio(String urlPath) async {
-    if (_currentSong.path != urlPath) {
-      _currentSong.path = urlPath;
+  playAudio(CheerSong playingSong) async {
+    if (_currentSong.path != playingSong.path) {
+      _currentSong = playingSong;
       _audioPlayer.pause();
-      await _audioPlayer.play(AssetSource(urlPath));
+      await _audioPlayer.play(AssetSource(playingSong.path));
     } else {
-      await _audioPlayer.play(AssetSource(urlPath));
+      await _audioPlayer.play(AssetSource(playingSong.path));
+    }
+    notifyListeners();
+  }
+
+  playAudioWithPath(String path) async {
+    if (_currentSong.path != path) {
+      late CheerSong currentSong;
+      for (int i = 0; i < songInfoList.length; i++) {
+        if (songInfoList[i].path == path) {
+          currentSong = songInfoList[i];
+          break;
+        }
+      }
+      _currentSong = currentSong;
+      _audioPlayer.pause();
+      await _audioPlayer.play(AssetSource(path));
+    } else {
+      await _audioPlayer.play(AssetSource(path));
     }
     notifyListeners();
   }
@@ -74,12 +92,6 @@ class AudioPlayerNotifier extends ChangeNotifier {
       _isRepeat = false;
       _audioPlayer.setReleaseMode(ReleaseMode.release);
     }
-    notifyListeners();
-  }
-
-  setTitleAndArtist(String title, String artist) {
-    _currentSong.title = title;
-    _currentSong.artist = artist;
     notifyListeners();
   }
 
