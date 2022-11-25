@@ -79,13 +79,7 @@ class _SongTileState extends State<SongTile> {
           child: Icon(Icons.play_arrow, size: 45),
           onTap: () {
             audioPlayerNotifier.setTitleAndArtist(widget.title, widget.artist);
-            playlistNotifier.addPlaylist(
-              CheerSong(
-                title: widget.title,
-                artist: widget.artist,
-                path: currentSong.path,
-              ),
-            );
+            playlistNotifier.addPlaylist(currentSong);
             audioPlayerNotifier.playAudio(playlistNotifier.playlist.last.path);
           },
         );

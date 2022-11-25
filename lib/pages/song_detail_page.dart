@@ -17,6 +17,14 @@ class _SongDetailPageState extends State<SongDetailPage> {
   Widget build(BuildContext context) {
     final likedNotifier = context.watch<LikedNotifier>();
     final audioPlayer = context.watch<AudioPlayerNotifier>();
+    late CheerSong currentSong;
+    for (int i = 0; i < songInfoList.length; i++) {
+      if (songInfoList[i].title == audioPlayer.currentSong.title) {
+        currentSong = songInfoList[i];
+        break;
+      }
+    }
+
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -26,14 +34,14 @@ class _SongDetailPageState extends State<SongDetailPage> {
               SizedBox(height: 10),
               _buildCloseButton(context),
               Text(
-                audioPlayer.title,
+                audioPlayer.currentSong.title,
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                audioPlayer.artist,
+                audioPlayer.currentSong.artist,
                 style: TextStyle(
                   fontSize: 16,
                 ),
@@ -82,28 +90,18 @@ class _SongDetailPageState extends State<SongDetailPage> {
                 children: [
                   InkWell(
                     child: Icon(
-                        likedNotifier.isLiked(
-                          CheerSong(
-                            title: audioPlayer.title,
-                            artist: audioPlayer.artist,
-                            path: audioPlayer.songPath,
-                          ),
-                        )
+                        likedNotifier.isLiked(currentSong)
                             ? Icons.favorite
                             : Icons.favorite_border,
                         size: 30),
-                    onTap: () {likedNotifier.toggleLikedSong(
-                      CheerSong(
-                        title: audioPlayer.title,
-                        artist: audioPlayer.artist,
-                        path: audioPlayer.songPath,
-                      ),
-                    );},
+                    onTap: () {
+                      likedNotifier.toggleLikedSong(currentSong);
+                    },
                   ),
                   SizedBox(width: 50),
                   MoreInfoBottomSheet(
-                    title: audioPlayer.title,
-                    artist: audioPlayer.artist,
+                    title: audioPlayer.currentSong.title,
+                    artist: audioPlayer.currentSong.artist,
                     size: 50,
                   ),
                 ],

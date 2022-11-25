@@ -55,9 +55,10 @@ class PlaylistPage extends StatelessWidget {
                   return PlaylistSongTile(
                     title: playlist[index].title,
                     artist: playlist[index].artist,
-                    selected: audioPlayer.title == playlist[index].title
-                        ? true
-                        : false,
+                    selected:
+                        audioPlayer.currentSong.title == playlist[index].title
+                            ? true
+                            : false,
                   );
                 },
               ),

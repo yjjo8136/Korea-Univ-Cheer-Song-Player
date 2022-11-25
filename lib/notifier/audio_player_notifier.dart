@@ -1,13 +1,13 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:korea_univ_cheer_song_player/song_list.dart';
 
 class AudioPlayerNotifier extends ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
   Duration _duration = new Duration();
   Duration _position = new Duration();
-  String _songPath = 'minjoguiAria.mp3';
-  String _title = '민족의 아리아';
-  String _artist = '고려대학교';
+  CheerSong _currentSong =
+      CheerSong(title: '민족의 아리아', artist: '고려대학교', path: 'minjoguiAria.mp3');
   bool _isPlaying = false;
   bool _isRepeat = false;
 
@@ -40,16 +40,19 @@ class AudioPlayerNotifier extends ChangeNotifier {
       _position = Duration(seconds: 0);
       if (_isRepeat == true) {
         _isPlaying = true;
-      } else {
-        _isPlaying = false;
+      } else if (_isRepeat == false) {
+        if (true /*다음 노래가 플레이리스트에 있으면*/) {
+        } else {
+          _isPlaying = false;
+        }
       }
       notifyListeners();
     });
   }
 
   playAudio(String urlPath) async {
-    if (_songPath != urlPath) {
-      _songPath = urlPath;
+    if (_currentSong.path != urlPath) {
+      _currentSong.path = urlPath;
       _audioPlayer.pause();
       await _audioPlayer.play(AssetSource(urlPath));
     } else {
@@ -75,8 +78,8 @@ class AudioPlayerNotifier extends ChangeNotifier {
   }
 
   setTitleAndArtist(String title, String artist) {
-    _title = title;
-    _artist = artist;
+    _currentSong.title = title;
+    _currentSong.artist = artist;
     notifyListeners();
   }
 
@@ -85,7 +88,5 @@ class AudioPlayerNotifier extends ChangeNotifier {
   Duration get position => _position;
   bool get isPlaying => _isPlaying;
   bool get isRepeat => _isRepeat;
-  String get songPath => _songPath;
-  String get title => _title;
-  String get artist => _artist;
+  CheerSong get currentSong => _currentSong;
 }
