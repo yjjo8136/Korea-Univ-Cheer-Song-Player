@@ -19,11 +19,12 @@ class MoreInfoBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    songInfoList.forEach((element) {
-      if (element.title == title && element.artist == artist) {
-        _currentSong = element;
+    for (int i = 0; i < songInfoList.length; i++) {
+      if (songInfoList[i].title == title) {
+        _currentSong = songInfoList[i];
+        break;
       }
-    });
+    }
 
     return InkWell(
       child: Icon(Icons.more_vert, size: size),
@@ -70,24 +71,12 @@ class MoreInfoBottomSheet extends StatelessWidget {
               Spacer(),
               InkWell(
                 child: Icon(
-                    likedNotifier.isLiked(
-                      CheerSong(
-                        title: title,
-                        artist: artist,
-                        path: _currentSong.path,
-                      ),
-                    )
+                    likedNotifier.isLiked(_currentSong)
                         ? Icons.favorite
                         : Icons.favorite_border,
                     size: 30),
                 onTap: () {
-                  likedNotifier.toggleLikedSong(
-                    CheerSong(
-                      title: title,
-                      artist: artist,
-                      path: _currentSong.path,
-                    ),
-                  );
+                  likedNotifier.toggleLikedSong(_currentSong);
                 },
               ),
               SizedBox(width: 20),
@@ -140,8 +129,7 @@ class MoreInfoBottomSheet extends StatelessWidget {
               ),
             ),
             onTap: () {
-              playlistNotifier.addPlaylist(CheerSong(
-                  title: title, artist: artist, path: _currentSong.path));
+              playlistNotifier.addPlaylist(_currentSong);
             },
           ),
         ],
