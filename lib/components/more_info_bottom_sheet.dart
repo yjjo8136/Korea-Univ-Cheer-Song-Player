@@ -8,11 +8,13 @@ class MoreInfoBottomSheet extends StatelessWidget {
   final String title;
   final String artist;
   final double size;
+  final showDeleteFromPlaylist;
 
   const MoreInfoBottomSheet({
     required this.title,
     required this.artist,
     required this.size,
+    this.showDeleteFromPlaylist = false,
   });
 
   @override
@@ -133,21 +135,23 @@ class MoreInfoBottomSheet extends StatelessWidget {
             },
           ),
           Divider(),
-          InkWell(
-            child: Container(
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Text(
-                  '재생목록에서 삭제',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-            ),
-            onTap: () {
-              playlistNotifier.deletePlaylist(currentSong);
-            },
-          ),
+          showDeleteFromPlaylist
+              ? InkWell(
+                  child: Container(
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text(
+                        '재생목록에서 삭제',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    playlistNotifier.deletePlaylist(currentSong);
+                  },
+                )
+              : SizedBox(height: 0),
         ],
       ),
     );

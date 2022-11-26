@@ -74,7 +74,11 @@ class _PlaylistSongTileState extends State<PlaylistSongTile> {
           ),
           Spacer(),
           MoreInfoBottomSheet(
-              title: widget.title, artist: widget.artist, size: 45),
+            title: widget.title,
+            artist: widget.artist,
+            size: 45,
+            showDeleteFromPlaylist: true,
+          ),
           SizedBox(width: 10),
         ],
       ),

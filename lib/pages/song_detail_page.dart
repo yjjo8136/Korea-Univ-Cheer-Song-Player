@@ -103,6 +103,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
                     title: audioPlayer.currentSong.title,
                     artist: audioPlayer.currentSong.artist,
                     size: 50,
+                    showDeleteFromPlaylist: true,
                   ),
                 ],
               ),
