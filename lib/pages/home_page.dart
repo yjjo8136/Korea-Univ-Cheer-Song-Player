@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/more_info_bottom_sheet.dart';
+import 'package:korea_univ_cheer_song_player/notifier/liked_notifier.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final likedSongList = context.watch<LikedNotifier>().likedSongList;
+
     return Scaffold(
       body: SafeArea(
         child: Column(

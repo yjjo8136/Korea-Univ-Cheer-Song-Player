@@ -8,7 +8,6 @@ class LikedNotifier extends ChangeNotifier {
 
   LikedNotifier() {
     _loadFromPrefs();
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   }
 
   _initPrefs() async {
