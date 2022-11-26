@@ -1,10 +1,4 @@
-class CheerSong {
-  String title;
-  String artist;
-  String path;
-
-  CheerSong({required this.title, required this.artist, required this.path});
-}
+import 'dart:convert';
 
 final List<CheerSong> songInfoList = [
   CheerSong(title: '민족의 아리아', artist: '고려대학교', path: 'minjoguiAria.mp3'),
@@ -40,3 +34,40 @@ final List<CheerSong> songInfoList = [
   CheerSong(title: '연세치킨', artist: '고려대학교', path: 'yonsei_chicken.mp3'),
   CheerSong(title: 'Young Tigers', artist: '고려대학교', path: 'young_tigers.mp3'),
 ];
+
+class CheerSong {
+  String title;
+  String artist;
+  String path;
+
+  CheerSong({
+    required this.title,
+    required this.artist,
+    required this.path,
+  });
+
+  factory CheerSong.fromJson(Map<String, dynamic> jsonData) {
+    return CheerSong(
+      title: jsonData['title'],
+      artist: jsonData['artist'],
+      path: jsonData['path'],
+    );
+  }
+
+  static Map<String, dynamic> toMap(CheerSong cheersong) => {
+        'title': cheersong.title,
+        'artist': cheersong.artist,
+        'path': cheersong.path,
+      };
+
+  static String encode(List<CheerSong> musics) => json.encode(
+        musics
+            .map<Map<String, dynamic>>((music) => CheerSong.toMap(music))
+            .toList(),
+      );
+
+  static List<CheerSong> decode(String musics) =>
+      (json.decode(musics) as List<dynamic>)
+          .map<CheerSong>((item) => CheerSong.fromJson(item))
+          .toList();
+}
