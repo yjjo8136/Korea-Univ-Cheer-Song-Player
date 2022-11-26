@@ -57,6 +57,7 @@ class PlaylistNotifier extends ChangeNotifier {
         }
       }
     } else {}
+    _saveToPrefs();
     notifyListeners();
   }
 

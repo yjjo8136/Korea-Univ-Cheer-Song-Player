@@ -132,6 +132,22 @@ class MoreInfoBottomSheet extends StatelessWidget {
               playlistNotifier.addPlaylist(currentSong);
             },
           ),
+          Divider(),
+          InkWell(
+            child: Container(
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  '재생목록에서 삭제',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ),
+            onTap: () {
+              playlistNotifier.deletePlaylist(currentSong);
+            },
+          ),
         ],
       ),
     );
