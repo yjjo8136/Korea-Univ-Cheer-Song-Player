@@ -55,7 +55,12 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
                 },
               ),
               Spacer(),
-              Icon(Icons.skip_previous, size: 40),
+              InkWell(
+                child: Icon(Icons.skip_previous, size: 40),
+                onTap: () {
+                  audioPlayer.playPreviousAudio();
+                },
+              ),
               Spacer(),
               InkWell(
                 child: Icon(
@@ -73,7 +78,12 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
                 },
               ),
               Spacer(),
-              Icon(Icons.skip_next, size: 40),
+              InkWell(
+                child: Icon(Icons.skip_next, size: 40),
+                onTap: () {
+                  audioPlayer.playNextAudio();
+                },
+              ),
               Spacer(),
               Icon(Icons.shuffle, size: 40),
               Spacer(),

@@ -103,6 +103,42 @@ class AudioPlayerNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  playNextAudio() {
+    int index = playlist.length - 1;
+    for (int i = 0; i < playlist.length; i++) {
+      if (playlist[i] == _currentSong) {
+        index = i;
+        break;
+      }
+    }
+
+    if (index == playlist.length - 1 && playlist != []) {
+      _currentSong = playlist[0];
+      _audioPlayer.play(AssetSource(playlist[0].path));
+    } else {
+      _currentSong = playlist[index + 1];
+      _audioPlayer.play(AssetSource(playlist[index + 1].path));
+    }
+  }
+
+  playPreviousAudio() {
+    int index = playlist.length - 1;
+    for (int i = 0; i < playlist.length; i++) {
+      if (playlist[i] == _currentSong) {
+        index = i;
+        break;
+      }
+    }
+
+    if (index == 0 && playlist != []) {
+      _currentSong = playlist.last;
+      _audioPlayer.play(AssetSource(playlist.last.path));
+    } else {
+      _currentSong = playlist[index - 1];
+      _audioPlayer.play(AssetSource(playlist[index - 1].path));
+    }
+  }
+
   toggleRepeatAudio() {
     if (_isRepeat == false) {
       _isRepeat = true;

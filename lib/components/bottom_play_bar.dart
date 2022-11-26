@@ -41,7 +41,12 @@ class _BottomPlayBarState extends State<BottomPlayBar> {
             children: [
               _buildPlayingSongInfo(),
               Spacer(),
-              Icon(Icons.skip_previous, size: 40),
+              InkWell(
+                child: Icon(Icons.skip_previous, size: 40),
+                onTap: () {
+                  audioPlayer.playPreviousAudio();
+                },
+              ),
               InkWell(
                 child: Icon(
                     audioPlayer.isPlaying == false
@@ -57,7 +62,12 @@ class _BottomPlayBarState extends State<BottomPlayBar> {
                   }
                 },
               ),
-              Icon(Icons.skip_next, size: 40),
+              InkWell(
+                child: Icon(Icons.skip_next, size: 40),
+                onTap: () {
+                  audioPlayer.playNextAudio();
+                },
+              ),
               SizedBox(width: 20),
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
