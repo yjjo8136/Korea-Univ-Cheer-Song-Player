@@ -12,6 +12,7 @@ class _BottomPlayBarState extends State<BottomPlayBar> {
   @override
   Widget build(BuildContext context) {
     final audioPlayer = context.watch<AudioPlayerNotifier>();
+
     return Column(
       children: [
         SizedBox(

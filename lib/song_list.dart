@@ -47,6 +47,11 @@ class CheerSong {
   });
 
   factory CheerSong.fromJson(Map<String, dynamic> jsonData) {
+    for (int i = 0; i < songInfoList.length; i++) {
+      if (songInfoList[i].title == jsonData['title']) {
+        return songInfoList[i];
+      }
+    }
     return CheerSong(
       title: jsonData['title'],
       artist: jsonData['artist'],
