@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:korea_univ_cheer_song_player/song_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,9 +38,14 @@ class AudioPlayerNotifier extends ChangeNotifier {
       _playlist = CheerSong.decode(playlistString);
     }
     for (int i = 0; i < _playlist.length; i++) {
-      audioPlayerPlaylist.add(AudioSource.uri(
-          Uri.parse('asset:///assets/' + _playlist[i].path),
-          tag: _playlist[i]));
+      audioPlayerPlaylist.add(
+          AudioSource.uri(Uri.parse('asset:///assets/' + _playlist[i].path),
+              tag: MediaItem(
+                id: _playlist[i].title,
+                title: _playlist[i].title,
+                artist: _playlist[i].artist,
+                artUri: Uri.parse('assets/korea_univ_logo.png'),
+              )));
     }
   }
 
@@ -71,8 +77,14 @@ class AudioPlayerNotifier extends ChangeNotifier {
 
     _audioPlayer.playbackEventStream.listen((event) {
       final int index = _audioPlayer.currentIndex ?? 0;
-      _currentSong = _audioPlayer.audioSource?.sequence[index].tag;
-      notifyListeners();
+      for (int i = 0; i < songInfoList.length; i++) {
+        if (songInfoList[i].title ==
+            _audioPlayer.audioSource?.sequence[index].tag.title) {
+          _currentSong = songInfoList[i];
+        }
+        ;
+        notifyListeners();
+      }
     });
 
     _audioPlayer.durationStream.listen((d) {
@@ -126,7 +138,12 @@ class AudioPlayerNotifier extends ChangeNotifier {
     _playlist.add(song);
     await audioPlayerPlaylist.add(AudioSource.uri(
       Uri.parse('asset:///assets/' + song.path),
-      tag: song,
+      tag: MediaItem(
+        id: song.title,
+        title: song.title,
+        artist: song.title,
+        artUri: Uri.parse('assets/korea_univ_logo.png'),
+      ),
     ));
     _currentSong = song;
     _saveToPrefs();
@@ -145,7 +162,7 @@ class AudioPlayerNotifier extends ChangeNotifier {
 
   changePlaylistIndex(CheerSong song) {
     for (int i = 0; i < _audioPlayer.audioSource!.sequence.length; i++) {
-      if (_audioPlayer.audioSource!.sequence[i].tag == song) {
+      if (_audioPlayer.audioSource!.sequence[i].tag.title == song.title) {
         _audioPlayer.seek(Duration.zero, index: i);
         break;
       }
