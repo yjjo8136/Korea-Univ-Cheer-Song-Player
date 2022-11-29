@@ -44,7 +44,7 @@ class _BottomPlayBarState extends State<BottomPlayBar> {
               InkWell(
                 child: Icon(Icons.skip_previous, size: 40),
                 onTap: () {
-                  audioPlayer.playPreviousAudio();
+                  audioPlayer.skipToPrevious();
                 },
               ),
               InkWell(
@@ -55,8 +55,7 @@ class _BottomPlayBarState extends State<BottomPlayBar> {
                     size: 60),
                 onTap: () async {
                   if (audioPlayer.isPlaying == false) {
-                    await audioPlayer
-                        .playAudioWithPath(audioPlayer.currentSong.path);
+                    audioPlayer.playAudio();
                   } else if (audioPlayer.isPlaying == true) {
                     audioPlayer.pauseAudio();
                   }
@@ -65,7 +64,7 @@ class _BottomPlayBarState extends State<BottomPlayBar> {
               InkWell(
                 child: Icon(Icons.skip_next, size: 40),
                 onTap: () {
-                  audioPlayer.playNextAudio();
+                  audioPlayer.skipToNext();
                 },
               ),
               SizedBox(width: 20),

@@ -51,14 +51,14 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
                         ? Color(0xFF7C001A)
                         : Colors.black),
                 onTap: () {
-                  audioPlayer.toggleRepeatAudio();
+                  audioPlayer.toggleLoopMode();
                 },
               ),
               Spacer(),
               InkWell(
                 child: Icon(Icons.skip_previous, size: 40),
                 onTap: () {
-                  audioPlayer.playPreviousAudio();
+                  audioPlayer.skipToPrevious();
                 },
               ),
               Spacer(),
@@ -70,8 +70,7 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
                     size: 60),
                 onTap: () async {
                   if (audioPlayer.isPlaying == false) {
-                    await audioPlayer
-                        .playAudioWithPath(audioPlayer.currentSong.path);
+                    audioPlayer.playAudio();
                   } else if (audioPlayer.isPlaying == true) {
                     audioPlayer.pauseAudio();
                   }
@@ -81,7 +80,7 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
               InkWell(
                 child: Icon(Icons.skip_next, size: 40),
                 onTap: () {
-                  audioPlayer.playNextAudio();
+                  audioPlayer.skipToNext();
                 },
               ),
               Spacer(),

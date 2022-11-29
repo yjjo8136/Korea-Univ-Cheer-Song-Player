@@ -63,26 +63,35 @@ class _AudioFileState extends State<AudioFile> {
                   color:
                       audioPlayer.isRepeat ? Color(0xFF7C001A) : Colors.black),
               onTap: () {
-                audioPlayer.toggleRepeatAudio();
+                audioPlayer.toggleLoopMode();
               },
             ),
-            Icon(Icons.skip_previous, size: 40),
+            InkWell(
+              child: Icon(Icons.skip_previous, size: 40),
+              onTap: () {
+                audioPlayer.skipToPrevious();
+              },
+            ),
             InkWell(
               child: Icon(
                   audioPlayer.isPlaying == false
                       ? Icons.play_arrow
                       : Icons.pause,
                   size: 60),
-              onTap: () async {
+              onTap: () {
                 if (audioPlayer.isPlaying == false) {
-                  await audioPlayer
-                      .playAudioWithPath(audioPlayer.currentSong.path);
+                  audioPlayer.playAudio();
                 } else if (audioPlayer.isPlaying == true) {
                   audioPlayer.pauseAudio();
                 }
               },
             ),
-            Icon(Icons.skip_next, size: 40),
+            InkWell(
+              child: Icon(Icons.skip_next, size: 40),
+              onTap: () {
+                audioPlayer.skipToNext();
+              },
+            ),
             Icon(Icons.shuffle, size: 40),
           ],
         ),

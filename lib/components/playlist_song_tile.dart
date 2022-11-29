@@ -69,7 +69,8 @@ class _PlaylistSongTileState extends State<PlaylistSongTile> {
               ),
             ),
             onTap: () {
-              audioPlayer.playAudio(currentSong);
+              audioPlayer.changePlaylistIndex(currentSong);
+              audioPlayer.playAudio();
             },
           ),
           Spacer(),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
 import 'package:korea_univ_cheer_song_player/notifier/liked_notifier.dart';
-import 'package:korea_univ_cheer_song_player/notifier/playlist_notifier.dart';
 import 'package:korea_univ_cheer_song_player/song_list.dart';
 import 'package:provider/provider.dart';
 
@@ -44,7 +44,7 @@ class MoreInfoBottomSheet extends StatelessWidget {
 
   Widget _buildBottomSheetContext(BuildContext context, CheerSong currentSong) {
     final likedNotifier = context.watch<LikedNotifier>();
-    final playlistNotifier = context.watch<PlaylistNotifier>();
+    final audioNotifier = context.watch<AudioPlayerNotifier>();
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -131,7 +131,8 @@ class MoreInfoBottomSheet extends StatelessWidget {
               ),
             ),
             onTap: () {
-              playlistNotifier.addPlaylist(currentSong);
+              audioNotifier.addToPlaylist(currentSong);
+              audioNotifier.playAudio();
             },
           ),
           Divider(),
@@ -148,7 +149,7 @@ class MoreInfoBottomSheet extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    playlistNotifier.deletePlaylist(currentSong);
+                    audioNotifier.deleteFromPlaylist(currentSong);
                   },
                 )
               : SizedBox(height: 0),

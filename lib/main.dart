@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
 import 'package:korea_univ_cheer_song_player/notifier/liked_notifier.dart';
-import 'package:korea_univ_cheer_song_player/notifier/playlist_notifier.dart';
 import 'package:korea_univ_cheer_song_player/pages/navigation_page.dart';
 import 'package:provider/provider.dart';
 
@@ -19,13 +18,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<LikedNotifier>(
           create: (context) => LikedNotifier(),
         ),
-        ChangeNotifierProvider<PlaylistNotifier>(
-          create: (context) => PlaylistNotifier(),
-        ),
-        ChangeNotifierProxyProvider<PlaylistNotifier, AudioPlayerNotifier>(
+        ChangeNotifierProvider<AudioPlayerNotifier>(
           create: (context) => AudioPlayerNotifier(),
-          update: (context, playlistNotifier, audioPlayerNotifier) =>
-              audioPlayerNotifier!..update(playlistNotifier),
         ),
       ],
       child: MaterialApp(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/more_info_bottom_sheet.dart';
 import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
-import 'package:korea_univ_cheer_song_player/notifier/playlist_notifier.dart';
 import 'package:korea_univ_cheer_song_player/song_list.dart';
 import 'package:provider/provider.dart';
 
@@ -73,13 +72,13 @@ class _SongTileState extends State<SongTile> {
   }
 
   Widget _buildPlayButton(CheerSong currentSong) {
-    return Consumer2<PlaylistNotifier, AudioPlayerNotifier>(
-      builder: (context, playlistNotifier, audioPlayerNotifier, child) {
+    return Consumer<AudioPlayerNotifier>(
+      builder: (context, audioPlayerNotifier, child) {
         return InkWell(
           child: Icon(Icons.play_arrow, size: 45),
           onTap: () {
-            playlistNotifier.addPlaylist(currentSong);
-            audioPlayerNotifier.playAudio(currentSong);
+            audioPlayerNotifier.addToPlaylist(currentSong);
+            audioPlayerNotifier.playAudio();
           },
         );
       },

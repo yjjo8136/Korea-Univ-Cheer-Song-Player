@@ -76,3 +76,15 @@ class CheerSong {
           .map<CheerSong>((item) => CheerSong.fromJson(item))
           .toList();
 }
+
+class AudioMetadata {
+  final String title;
+  final String artist;
+  final String path;
+
+  AudioMetadata({
+    required this.title,
+    required this.artist,
+    required this.path,
+  });
+}

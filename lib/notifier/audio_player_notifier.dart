@@ -1,153 +1,155 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:korea_univ_cheer_song_player/notifier/playlist_notifier.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:korea_univ_cheer_song_player/song_list.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AudioPlayerNotifier extends ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
-  Duration _duration = new Duration();
-  Duration _position = new Duration();
+  Duration _duration = Duration();
+  Duration _position = Duration();
   CheerSong _currentSong =
       CheerSong(title: '민족의 아리아', artist: '고려대학교', path: 'minjoguiAria.mp3');
   bool _isPlaying = false;
   bool _isRepeat = false;
-  List<CheerSong> playlist = [];
+  List<CheerSong> _playlist = [];
+  var audioPlayerPlaylist = ConcatenatingAudioSource(
+    useLazyPreparation: true,
+    shuffleOrder: DefaultShuffleOrder(),
+    children: [],
+  );
+  SharedPreferences? prefs;
 
   AudioPlayerNotifier() {
+    _loadFromPrefs();
     initAudio();
   }
 
+  _initPrefs() async {
+    if (prefs == null) {
+      prefs = await SharedPreferences.getInstance();
+    }
+  }
+
+  _loadFromPrefs() async {
+    await _initPrefs();
+    final String? playlistString = prefs!.getString('playlist');
+    if (playlistString != null) {
+      _playlist = CheerSong.decode(playlistString);
+    }
+    for (int i = 0; i < _playlist.length; i++) {
+      audioPlayerPlaylist.add(AudioSource.uri(
+          Uri.parse('asset:///assets/' + _playlist[i].path),
+          tag: _playlist[i]));
+    }
+  }
+
+  _saveToPrefs() async {
+    await _initPrefs();
+    final String encodedData = CheerSong.encode(_playlist);
+    prefs!.setString('playlist', encodedData);
+  }
+
   initAudio() {
-    _audioPlayer.onDurationChanged.listen((updatedDuration) {
-      _duration = updatedDuration;
-      notifyListeners();
-    });
+    _audioPlayer.setAudioSource(audioPlayerPlaylist,
+        initialIndex: 0, initialPosition: Duration.zero);
 
-    _audioPlayer.onPositionChanged.listen((updatedPosition) {
-      _position = updatedPosition;
-      notifyListeners();
-    });
-
-    _audioPlayer.onPlayerStateChanged.listen((playerState) {
-      if (playerState == PlayerState.playing) {
-        _isPlaying = true;
+    _audioPlayer.processingStateStream.listen((state) async {
+      if (state == ProcessingState.completed) {
+        await _audioPlayer.pause();
+        await _audioPlayer.seek(Duration.zero, index: 0);
       }
-      if (playerState == PlayerState.paused) {
+    });
+
+    _audioPlayer.playerStateStream.listen((playerState) {
+      if (playerState.playing) {
+        _isPlaying = true;
+      } else {
         _isPlaying = false;
       }
       notifyListeners();
     });
 
-    _audioPlayer.onPlayerComplete.listen((event) {
-      _position = Duration(seconds: 0);
+    _audioPlayer.playbackEventStream.listen((event) {
+      final int index = _audioPlayer.currentIndex ?? 0;
+      _currentSong = _audioPlayer.audioSource?.sequence[index].tag;
+      notifyListeners();
+    });
 
-      int index = playlist.length - 1;
-      for (int i = 0; i < playlist.length; i++) {
-        if (playlist[i] == _currentSong) {
-          index = i;
-
-          break;
-        }
+    _audioPlayer.durationStream.listen((d) {
+      if (d != null) {
+        _duration = d;
+        notifyListeners();
       }
+    });
 
-      if (_isRepeat == true) {
-        _isPlaying = true;
-      } else if (_isRepeat == false) {
-        if (index != playlist.length - 1) {
-          _currentSong = playlist[index + 1];
-          _audioPlayer.play(AssetSource(playlist[index + 1].path));
-        } else {
-          _isPlaying = false;
-        }
-      }
+    _audioPlayer.positionStream.listen((p) {
+      _position = p;
       notifyListeners();
     });
   }
 
-  void update(PlaylistNotifier playlistNotifier) {
-    playlist = playlistNotifier.playlist;
-    notifyListeners();
+  playAudio() async {
+    await _audioPlayer.play();
   }
 
-  playAudio(CheerSong playingSong) async {
-    if (_currentSong.path != playingSong.path) {
-      _currentSong = playingSong;
-      _audioPlayer.pause();
-      await _audioPlayer.play(AssetSource(playingSong.path));
+  pauseAudio() async {
+    await _audioPlayer.pause();
+  }
+
+  skipToNext() async {
+    await _audioPlayer.seekToNext();
+  }
+
+  skipToPrevious() async {
+    await _audioPlayer.seekToPrevious();
+  }
+
+  toggleLoopMode() async {
+    if (_isRepeat) {
+      await _audioPlayer.setLoopMode(LoopMode.off);
     } else {
-      await _audioPlayer.play(AssetSource(playingSong.path));
+      await _audioPlayer.setLoopMode(LoopMode.one);
     }
+    _isRepeat = !_isRepeat;
     notifyListeners();
   }
 
-  playAudioWithPath(String path) async {
-    if (_currentSong.path != path) {
-      late CheerSong currentSong;
-      for (int i = 0; i < songInfoList.length; i++) {
-        if (songInfoList[i].path == path) {
-          currentSong = songInfoList[i];
-          break;
+  addToPlaylist(CheerSong song) async {
+    if (_playlist.contains(song)) {
+      for (int i = 0; i < _playlist.length; i++) {
+        if (_playlist[i] == song) {
+          _playlist.removeAt(i);
+          audioPlayerPlaylist.removeAt(i);
         }
       }
-      _currentSong = currentSong;
-      _audioPlayer.pause();
-      await _audioPlayer.play(AssetSource(path));
-    } else {
-      await _audioPlayer.play(AssetSource(path));
     }
-    notifyListeners();
+    _playlist.add(song);
+    await audioPlayerPlaylist.add(AudioSource.uri(
+      Uri.parse('asset:///assets/' + song.path),
+      tag: song,
+    ));
+    _currentSong = song;
+    _saveToPrefs();
+    await _audioPlayer.seek(Duration.zero, index: _playlist.length - 1);
   }
 
-  pauseAudio() {
-    _audioPlayer.pause();
-    notifyListeners();
+  deleteFromPlaylist(CheerSong song) async {
+    for (int i = 0; i < _playlist.length; i++) {
+      if (_playlist[i] == song) {
+        _playlist.removeAt(i);
+        audioPlayerPlaylist.removeAt(i);
+      }
+    }
+    _saveToPrefs();
   }
 
-  playNextAudio() {
-    int index = playlist.length - 1;
-    for (int i = 0; i < playlist.length; i++) {
-      if (playlist[i] == _currentSong) {
-        index = i;
+  changePlaylistIndex(CheerSong song) {
+    for (int i = 0; i < _audioPlayer.audioSource!.sequence.length; i++) {
+      if (_audioPlayer.audioSource!.sequence[i].tag == song) {
+        _audioPlayer.seek(Duration.zero, index: i);
         break;
       }
     }
-
-    if (index == playlist.length - 1 && playlist != []) {
-      _currentSong = playlist[0];
-      _audioPlayer.play(AssetSource(playlist[0].path));
-    } else {
-      _currentSong = playlist[index + 1];
-      _audioPlayer.play(AssetSource(playlist[index + 1].path));
-    }
-  }
-
-  playPreviousAudio() {
-    int index = playlist.length - 1;
-    for (int i = 0; i < playlist.length; i++) {
-      if (playlist[i] == _currentSong) {
-        index = i;
-        break;
-      }
-    }
-
-    if (index == 0 && playlist != []) {
-      _currentSong = playlist.last;
-      _audioPlayer.play(AssetSource(playlist.last.path));
-    } else {
-      _currentSong = playlist[index - 1];
-      _audioPlayer.play(AssetSource(playlist[index - 1].path));
-    }
-  }
-
-  toggleRepeatAudio() {
-    if (_isRepeat == false) {
-      _isRepeat = true;
-      _audioPlayer.setReleaseMode(ReleaseMode.loop);
-    } else if (_isRepeat == true) {
-      _isRepeat = false;
-      _audioPlayer.setReleaseMode(ReleaseMode.release);
-    }
-    notifyListeners();
   }
 
   AudioPlayer get audioPlayer => _audioPlayer;
@@ -156,4 +158,5 @@ class AudioPlayerNotifier extends ChangeNotifier {
   bool get isPlaying => _isPlaying;
   bool get isRepeat => _isRepeat;
   CheerSong get currentSong => _currentSong;
+  List<CheerSong> get playlist => _playlist;
 }

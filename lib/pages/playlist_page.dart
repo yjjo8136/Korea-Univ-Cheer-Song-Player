@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/playlist_play_bar.dart';
 import 'package:korea_univ_cheer_song_player/components/playlist_song_tile.dart';
 import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
-import 'package:korea_univ_cheer_song_player/notifier/playlist_notifier.dart';
 import 'package:provider/provider.dart';
 
 class PlaylistPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final playlist = context.watch<PlaylistNotifier>().playlist;
     final audioPlayer = context.watch<AudioPlayerNotifier>();
     return SafeArea(
       child: Scaffold(
@@ -50,15 +48,15 @@ class PlaylistPage extends StatelessWidget {
             SizedBox(height: 20),
             Expanded(
               child: ListView.builder(
-                itemCount: playlist.length,
+                itemCount: audioPlayer.playlist.length,
                 itemBuilder: (context, index) {
                   return PlaylistSongTile(
-                    title: playlist[index].title,
-                    artist: playlist[index].artist,
-                    selected:
-                        audioPlayer.currentSong.title == playlist[index].title
-                            ? true
-                            : false,
+                    title: audioPlayer.playlist[index].title,
+                    artist: audioPlayer.playlist[index].artist,
+                    selected: audioPlayer.currentSong.title ==
+                            audioPlayer.playlist[index].title
+                        ? true
+                        : false,
                   );
                 },
               ),
