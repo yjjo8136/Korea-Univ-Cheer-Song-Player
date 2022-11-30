@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:korea_univ_cheer_song_player/components/full_lyric.dart';
 import 'package:korea_univ_cheer_song_player/components/playlist_play_bar.dart';
-import 'package:korea_univ_cheer_song_player/text_style.dart';
+import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
+import 'package:provider/provider.dart';
 
 class LyricDetailPage extends StatelessWidget {
   @override
@@ -35,25 +37,29 @@ class LyricDetailPage extends StatelessWidget {
   Widget _buildSongTitle() {
     return Padding(
       padding: const EdgeInsets.only(left: 16),
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '민족의 아리아',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+      child: Consumer<AudioPlayerNotifier>(
+        builder: (context, audioPlayer, child) {
+          return Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  audioPlayer.currentSong.title,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  audioPlayer.currentSong.artist,
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ],
             ),
-            Text(
-              '고려대학교',
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -62,14 +68,7 @@ class LyricDetailPage extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.only(left: 16.0),
-        child: ListView(
-          children: [
-            Text('타오르는 자유', style: lyricStyle),
-            Text('나아가는 정의', style: lyricStyle),
-            Text('솟구치는 진리', style: lyricStyle),
-            Text('민족의 힘으로', style: lyricStyle),
-          ],
-        ),
+        child: FullLyric(),
       ),
     );
   }

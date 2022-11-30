@@ -44,7 +44,7 @@ class AudioPlayerNotifier extends ChangeNotifier {
                 id: _playlist[i].title,
                 title: _playlist[i].title,
                 artist: _playlist[i].artist,
-                artUri: Uri.parse('assets/korea_univ_logo.png'),
+                //artUri: Uri.parse('https://ibb.co/vH61fXR'),
               )));
     }
   }
@@ -82,7 +82,6 @@ class AudioPlayerNotifier extends ChangeNotifier {
             _audioPlayer.audioSource?.sequence[index].tag.title) {
           _currentSong = songInfoList[i];
         }
-        ;
         notifyListeners();
       }
     });
@@ -142,7 +141,7 @@ class AudioPlayerNotifier extends ChangeNotifier {
         id: song.title,
         title: song.title,
         artist: song.title,
-        artUri: Uri.parse('assets/korea_univ_logo.png'),
+        //artUri: Uri.parse('https://ibb.co/vH61fXR'),
       ),
     ));
     _currentSong = song;
