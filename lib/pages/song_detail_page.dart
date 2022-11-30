@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/audio_file.dart';
 import 'package:korea_univ_cheer_song_player/components/more_info_bottom_sheet.dart';
+import 'package:korea_univ_cheer_song_player/components/two_line_lyric.dart';
 import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
 import 'package:korea_univ_cheer_song_player/notifier/liked_notifier.dart';
 import 'package:korea_univ_cheer_song_player/pages/lyric_detail_page.dart';
@@ -55,25 +56,10 @@ class _SongDetailPageState extends State<SongDetailPage> {
               ),
               SizedBox(height: 20),
               InkWell(
-                child: Column(
-                  children: [
-                    Text(
-                      '자 지축을 박차고 자 포효하라 그대',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      '조국의 영원한 고동이 되리라',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0x80000000),
-                      ),
-                    ),
-                  ],
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 60,
+                  child: TwoLineLyric(),
                 ),
                 onTap: () {
                   Navigator.push(
