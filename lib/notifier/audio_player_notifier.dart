@@ -12,6 +12,7 @@ class AudioPlayerNotifier extends ChangeNotifier {
       CheerSong(title: '민족의 아리아', artist: '고려대학교', path: 'minjoguiAria.mp3');
   bool _isPlaying = false;
   bool _isRepeat = false;
+  bool _isShuffle = false;
   List<CheerSong> _playlist = [];
   var audioPlayerPlaylist = ConcatenatingAudioSource(
     useLazyPreparation: true,
@@ -125,6 +126,16 @@ class AudioPlayerNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  toggleSuffleMode() async {
+    if (_isShuffle) {
+      await _audioPlayer.setShuffleModeEnabled(false);
+    } else {
+      await _audioPlayer.setShuffleModeEnabled(true);
+    }
+    _isShuffle = !_isShuffle;
+    notifyListeners();
+  }
+
   addToPlaylist(CheerSong song) async {
     if (_playlist.contains(song)) {
       for (int i = 0; i < _playlist.length; i++) {
@@ -173,6 +184,7 @@ class AudioPlayerNotifier extends ChangeNotifier {
   Duration get position => _position;
   bool get isPlaying => _isPlaying;
   bool get isRepeat => _isRepeat;
+  bool get isShuffle => _isShuffle;
   CheerSong get currentSong => _currentSong;
   List<CheerSong> get playlist => _playlist;
 

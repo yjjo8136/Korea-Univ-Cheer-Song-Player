@@ -92,7 +92,16 @@ class _AudioFileState extends State<AudioFile> {
                 audioPlayer.skipToNext();
               },
             ),
-            Icon(Icons.shuffle, size: 40),
+            InkWell(
+              child: Icon(
+                Icons.shuffle,
+                size: 40,
+                color: audioPlayer.isShuffle ? Color(0xFF7C001A) : Colors.black,
+              ),
+              onTap: () {
+                audioPlayer.toggleSuffleMode();
+              },
+            ),
           ],
         ),
       ],

@@ -84,7 +84,17 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
                 },
               ),
               Spacer(),
-              Icon(Icons.shuffle, size: 40),
+              InkWell(
+                child: Icon(
+                  Icons.shuffle,
+                  size: 40,
+                  color:
+                      audioPlayer.isShuffle ? Color(0xFF7C001A) : Colors.black,
+                ),
+                onTap: () {
+                  audioPlayer.toggleSuffleMode();
+                },
+              ),
               Spacer(),
               SizedBox(width: 10),
               widget.isLyricPage
