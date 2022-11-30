@@ -175,4 +175,8 @@ class AudioPlayerNotifier extends ChangeNotifier {
   bool get isRepeat => _isRepeat;
   CheerSong get currentSong => _currentSong;
   List<CheerSong> get playlist => _playlist;
+
+  void setPosition(Duration position) {
+    _audioPlayer.seek(position);
+  }
 }

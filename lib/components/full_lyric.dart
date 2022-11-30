@@ -30,17 +30,26 @@ class _FullLyricState extends State<FullLyric> {
   }
 
   Widget lyricLine(List<LrcLine> lrcList, int index) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 4.0),
-      child: Text(
-        lrcList[index].lyrics,
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: isCurrentLyric(lrcList, index)
-              ? FontWeight.bold
-              : FontWeight.normal,
-        ),
-      ),
+    return Consumer<AudioPlayerNotifier>(
+      builder: (context, audioPlayer, child) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 4.0),
+          child: InkWell(
+            child: Text(
+              lrcList[index].lyrics,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: isCurrentLyric(lrcList, index)
+                    ? FontWeight.bold
+                    : FontWeight.normal,
+              ),
+            ),
+            onTap: () {
+              audioPlayer.setPosition(lrcList[index].timestamp);
+            },
+          ),
+        );
+      },
     );
   }
 
