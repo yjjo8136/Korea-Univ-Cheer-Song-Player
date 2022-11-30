@@ -14,8 +14,10 @@ class TwoLineLyric extends StatefulWidget {
 class _TwoLineLyricState extends State<TwoLineLyric> {
   @override
   Widget build(BuildContext context) {
+    final audioPlayer = context.watch<AudioPlayerNotifier>();
     return FutureBuilder(
-      future: rootBundle.loadString('assets/lrc/chulsapyo.lrc'),
+      future: rootBundle.loadString(
+          'assets/lrc/${audioPlayer.currentSong.path.split('.')[0]}.lrc'),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         Lrc parsedLrc = snapshot.data.toString().toLrc();
         int index = 0;
@@ -35,6 +37,9 @@ class _TwoLineLyricState extends State<TwoLineLyric> {
   }
 
   Widget lyricLine(List<LrcLine> lrcList, int index) {
+    if (index == lrcList.length) {
+      return Text('');
+    }
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(bottom: 4.0),

@@ -14,8 +14,10 @@ class FullLyric extends StatefulWidget {
 class _FullLyricState extends State<FullLyric> {
   @override
   Widget build(BuildContext context) {
+    final audioPlayer = context.watch<AudioPlayerNotifier>();
     return FutureBuilder(
-      future: rootBundle.loadString('assets/lrc/chulsapyo.lrc'),
+      future: rootBundle.loadString(
+          'assets/lrc/${audioPlayer.currentSong.path.split('.')[0]}.lrc'),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         Lrc parsedLrc = snapshot.data.toString().toLrc();
         return ListView.builder(
