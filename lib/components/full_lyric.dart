@@ -33,7 +33,7 @@ class _FullLyricState extends State<FullLyric> {
     return Consumer<AudioPlayerNotifier>(
       builder: (context, audioPlayer, child) {
         return Padding(
-          padding: const EdgeInsets.only(bottom: 4.0),
+          padding: const EdgeInsets.only(bottom: 8.0),
           child: InkWell(
             child: Text(
               lrcList[index].lyrics,

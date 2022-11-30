@@ -29,6 +29,7 @@ class _TwoLineLyricState extends State<TwoLineLyric> {
         return Column(
           children: [
             lyricLine(parsedLrc.lyrics, index),
+            SizedBox(height: 4),
             lyricLine(parsedLrc.lyrics, index + 1),
           ],
         );
