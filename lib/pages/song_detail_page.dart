@@ -58,7 +58,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
               InkWell(
                 child: SizedBox(
                   width: double.infinity,
-                  height: 60,
+                  height: 65,
                   child: TwoLineLyric(),
                 ),
                 onTap: () {

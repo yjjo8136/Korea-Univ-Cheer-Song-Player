@@ -16,17 +16,20 @@ class _FullLyricState extends State<FullLyric> {
   Widget build(BuildContext context) {
     final audioPlayer = context.watch<AudioPlayerNotifier>();
     return FutureBuilder(
-      future: rootBundle.loadString(
-          'assets/lrc/${audioPlayer.currentSong.path.split('.')[0]}.lrc'),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        Lrc parsedLrc = snapshot.data.toString().toLrc();
-        return ListView.builder(
-            itemCount: parsedLrc.lyrics.length,
-            itemBuilder: (BuildContext context, int index) {
-              return lyricLine(parsedLrc.lyrics, index);
-            });
-      },
-    );
+        future: rootBundle.loadString(
+            'assets/lrc/${audioPlayer.currentSong.path.split('.')[0]}.lrc'),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return CircularProgressIndicator();
+          } else {
+            Lrc parsedLrc = snapshot.data.toString().toLrc();
+            return ListView.builder(
+                itemCount: parsedLrc.lyrics.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return lyricLine(parsedLrc.lyrics, index);
+                });
+          }
+        });
   }
 
   Widget lyricLine(List<LrcLine> lrcList, int index) {

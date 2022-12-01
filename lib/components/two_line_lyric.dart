@@ -16,25 +16,28 @@ class _TwoLineLyricState extends State<TwoLineLyric> {
   Widget build(BuildContext context) {
     final audioPlayer = context.watch<AudioPlayerNotifier>();
     return FutureBuilder(
-      future: rootBundle.loadString(
-          'assets/lrc/${audioPlayer.currentSong.path.split('.')[0]}.lrc'),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        Lrc parsedLrc = snapshot.data.toString().toLrc();
-        int index = 0;
-        for (int i = 0; i < parsedLrc.lyrics.length; i++) {
-          if (isCurrentLyric(parsedLrc.lyrics, i)) {
-            index = i;
+        future: rootBundle.loadString(
+            'assets/lrc/${audioPlayer.currentSong.path.split('.')[0]}.lrc'),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return CircularProgressIndicator();
+          } else {
+            Lrc parsedLrc = snapshot.data.toString().toLrc();
+            int index = 0;
+            for (int i = 0; i < parsedLrc.lyrics.length; i++) {
+              if (isCurrentLyric(parsedLrc.lyrics, i)) {
+                index = i;
+              }
+            }
+            return Column(
+              children: [
+                lyricLine(parsedLrc.lyrics, index),
+                SizedBox(height: 4),
+                lyricLine(parsedLrc.lyrics, index + 1),
+              ],
+            );
           }
-        }
-        return Column(
-          children: [
-            lyricLine(parsedLrc.lyrics, index),
-            SizedBox(height: 4),
-            lyricLine(parsedLrc.lyrics, index + 1),
-          ],
-        );
-      },
-    );
+        });
   }
 
   Widget lyricLine(List<LrcLine> lrcList, int index) {
