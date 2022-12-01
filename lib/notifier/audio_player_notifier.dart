@@ -77,8 +77,8 @@ class AudioPlayerNotifier extends ChangeNotifier {
     });
 
     _audioPlayer.playbackEventStream.listen((event) {
-      if (_audioPlayer.currentIndex != null) {
-        final int index = _audioPlayer.currentIndex ?? 0;
+      final int index = _audioPlayer.currentIndex ?? 0;
+      if (_audioPlayer.audioSource?.sequence.length != 0) {
         for (int i = 0; i < songInfoList.length; i++) {
           if (songInfoList[i].title ==
               _audioPlayer.audioSource?.sequence[index].tag.title) {
@@ -160,6 +160,7 @@ class AudioPlayerNotifier extends ChangeNotifier {
     _currentSong = song;
     _saveToPrefs();
     await _audioPlayer.seek(Duration.zero, index: _playlist.length - 1);
+    notifyListeners();
   }
 
   deleteFromPlaylist(CheerSong song) async {
@@ -170,6 +171,7 @@ class AudioPlayerNotifier extends ChangeNotifier {
       }
     }
     _saveToPrefs();
+    notifyListeners();
   }
 
   changePlaylistIndex(CheerSong song) {
@@ -179,6 +181,7 @@ class AudioPlayerNotifier extends ChangeNotifier {
         break;
       }
     }
+    notifyListeners();
   }
 
   AudioPlayer get audioPlayer => _audioPlayer;
