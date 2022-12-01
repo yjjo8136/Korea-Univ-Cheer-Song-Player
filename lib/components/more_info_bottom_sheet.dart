@@ -158,6 +158,7 @@ class MoreInfoBottomSheet extends StatelessWidget {
                   ),
                   onTap: () {
                     audioNotifier.deleteFromPlaylist(currentSong);
+                    Navigator.pop(context);
                   },
                 )
               : SizedBox(height: 0),
