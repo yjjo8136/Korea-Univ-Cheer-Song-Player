@@ -6,10 +6,10 @@ import 'package:korea_univ_cheer_song_player/song_list.dart';
 import 'package:lrc/lrc.dart';
 import 'package:provider/provider.dart';
 
-class RawSongLyric extends StatelessWidget {
+class RawSongLyricPage extends StatelessWidget {
   final CheerSong song;
 
-  const RawSongLyric({super.key, required this.song});
+  const RawSongLyricPage({super.key, required this.song});
 
   @override
   Widget build(BuildContext context) {

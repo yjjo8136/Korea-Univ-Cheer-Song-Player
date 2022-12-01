@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:korea_univ_cheer_song_player/components/raw_song_lyric.dart';
 import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
 import 'package:korea_univ_cheer_song_player/notifier/liked_notifier.dart';
+import 'package:korea_univ_cheer_song_player/pages/raw_song_lyric_page.dart';
 import 'package:korea_univ_cheer_song_player/song_list.dart';
 import 'package:provider/provider.dart';
 
@@ -107,7 +107,7 @@ class MoreInfoBottomSheet extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => RawSongLyric(song: currentSong),
+                  builder: (context) => RawSongLyricPage(song: currentSong),
                 ),
               );
             },
