@@ -77,13 +77,15 @@ class AudioPlayerNotifier extends ChangeNotifier {
     });
 
     _audioPlayer.playbackEventStream.listen((event) {
-      final int index = _audioPlayer.currentIndex ?? 0;
-      for (int i = 0; i < songInfoList.length; i++) {
-        if (songInfoList[i].title ==
-            _audioPlayer.audioSource?.sequence[index].tag.title) {
-          _currentSong = songInfoList[i];
+      if (_audioPlayer.currentIndex != null) {
+        final int index = _audioPlayer.currentIndex ?? 0;
+        for (int i = 0; i < songInfoList.length; i++) {
+          if (songInfoList[i].title ==
+              _audioPlayer.audioSource?.sequence[index].tag.title) {
+            _currentSong = songInfoList[i];
+          }
+          notifyListeners();
         }
-        notifyListeners();
       }
     });
 
