@@ -21,6 +21,13 @@ class _FullLyricState extends State<FullLyric> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return CircularProgressIndicator();
+          } else if (!snapshot.data.toString().isValidLrc) {
+            return Center(
+              child: Text(
+                "등록된 가사가 없습니다",
+                style: TextStyle(fontSize: 18),
+              ),
+            );
           } else {
             Lrc parsedLrc = snapshot.data.toString().toLrc();
             return ListView.builder(
