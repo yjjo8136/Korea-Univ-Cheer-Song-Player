@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/components/more_info_bottom_sheet.dart';
+import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
 import 'package:korea_univ_cheer_song_player/notifier/liked_notifier.dart';
+import 'package:korea_univ_cheer_song_player/song_list.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -39,52 +41,70 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildSongTile(String rank, String title, String artist) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 16),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Color(0xFFDBBA81),
-        ),
-        width: double.infinity,
-        height: 80,
-        child: Row(
-          children: [
-            SizedBox(width: 25),
-            Image.asset('assets/korea_univ_logo.png', height: 45, width: 45),
-            SizedBox(width: 10),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    rank + '    ' + title,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    '          ' + artist,
-                    style: TextStyle(
-                      color: Color(0x4D000000),
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+    late CheerSong currentSong;
+    for (int i = 0; i < songInfoList.length; i++) {
+      if (songInfoList[i].title == title) {
+        currentSong = songInfoList[i];
+        break;
+      }
+    }
+    return Consumer<AudioPlayerNotifier>(
+      builder: (context, audioPlayerNotifier, child) {
+        return Padding(
+          padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 16),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Color(0xFFDBBA81),
             ),
-            Spacer(),
-            Icon(Icons.play_arrow, size: 30),
-            MoreInfoBottomSheet(title: title, artist: artist, size: 30),
-            SizedBox(width: 10),
-          ],
-        ),
-      ),
+            width: double.infinity,
+            height: 80,
+            child: Row(
+              children: [
+                SizedBox(width: 25),
+                Image.asset('assets/korea_univ_logo.png',
+                    height: 45, width: 45),
+                SizedBox(width: 10),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        rank + '    ' + title,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        '          ' + artist,
+                        style: TextStyle(
+                          color: Color(0x4D000000),
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Spacer(),
+                InkWell(
+                  child: Icon(Icons.play_arrow, size: 30),
+                  onTap: () {
+                    audioPlayerNotifier.addToPlaylist(currentSong);
+                    audioPlayerNotifier.playAudio();
+                  },
+                ),
+                MoreInfoBottomSheet(title: title, artist: artist, size: 30),
+                SizedBox(width: 10),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
