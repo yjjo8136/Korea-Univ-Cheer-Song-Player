@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 16, top: 8, bottom: 16),
+              padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16),
               child: Container(
                 width: double.infinity,
                 child: Text(

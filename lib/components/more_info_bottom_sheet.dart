@@ -113,6 +113,7 @@ class MoreInfoBottomSheet extends StatelessWidget {
             },
           ),
           Divider(),
+          /*
           InkWell(
             child: Container(
               width: double.infinity,
@@ -127,6 +128,7 @@ class MoreInfoBottomSheet extends StatelessWidget {
             onTap: () {},
           ),
           Divider(),
+           */
           InkWell(
             child: Container(
               width: double.infinity,

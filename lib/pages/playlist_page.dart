@@ -12,7 +12,7 @@ class PlaylistPage extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            SizedBox(height: 15),
+            SizedBox(height: 30),
             Stack(
               children: [
                 Align(
@@ -31,6 +31,7 @@ class PlaylistPage extends StatelessWidget {
                 ),
               ],
             ),
+            /*
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -45,6 +46,8 @@ class PlaylistPage extends StatelessWidget {
                 ],
               ),
             ),
+            */
+
             SizedBox(height: 20),
             Expanded(
               child: ListView.builder(

@@ -13,7 +13,7 @@ class LikePage extends StatelessWidget {
         child: Scaffold(
           body: Column(
             children: [
-              SizedBox(height: 15),
+              SizedBox(height: 30),
               Text(
                 '좋아요 목록',
                 textAlign: TextAlign.start,
