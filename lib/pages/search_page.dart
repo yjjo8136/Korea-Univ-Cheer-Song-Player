@@ -14,12 +14,14 @@ class _SearchPageState extends State<SearchPage> {
       child: Scaffold(
         body: Column(
           children: [
-            SizedBox(height: 15),
+            SizedBox(height: 30),
             Text(
-              '응원가 검색',
+              '응원가 전체 보기',
               textAlign: TextAlign.start,
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
+            SizedBox(height: 20),
+            /*
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -31,6 +33,7 @@ class _SearchPageState extends State<SearchPage> {
                 ],
               ),
             ),
+            */
             Expanded(
               child: ListView.builder(
                 itemCount: songInfoList.length,
