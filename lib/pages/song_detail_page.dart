@@ -28,74 +28,77 @@ class _SongDetailPageState extends State<SongDetailPage> {
 
     return SafeArea(
       child: Scaffold(
-        body: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 10),
-              _buildCloseButton(context),
-              Text(
-                audioPlayer.currentSong.title,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 10),
+                _buildCloseButton(context),
+                Text(
+                  audioPlayer.currentSong.title,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Text(
-                audioPlayer.currentSong.artist,
-                style: TextStyle(
-                  fontSize: 16,
+                Text(
+                  audioPlayer.currentSong.artist,
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
                 ),
-              ),
-              SizedBox(height: 30),
-              Image.asset(
-                'assets/korea_univ_logo.png',
-                height: 270,
-                width: 270,
-                fit: BoxFit.fill,
-              ),
-              SizedBox(height: 20),
-              InkWell(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 65,
-                  child: TwoLineLyric(),
+                SizedBox(height: 30),
+                Image.asset(
+                  'assets/korea_univ_logo.png',
+                  height: 270,
+                  width: 270,
+                  fit: BoxFit.fill,
                 ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LyricDetailPage(),
+                SizedBox(height: 20),
+                InkWell(
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 65,
+                    child: TwoLineLyric(),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LyricDetailPage(),
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      child: Icon(
+                          likedNotifier.isLiked(currentSong)
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          size: 30),
+                      onTap: () {
+                        likedNotifier.toggleLikedSong(currentSong);
+                      },
                     ),
-                  );
-                },
-              ),
-              SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    child: Icon(
-                        likedNotifier.isLiked(currentSong)
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        size: 30),
-                    onTap: () {
-                      likedNotifier.toggleLikedSong(currentSong);
-                    },
-                  ),
-                  SizedBox(width: 50),
-                  MoreInfoBottomSheet(
-                    title: audioPlayer.currentSong.title,
-                    artist: audioPlayer.currentSong.artist,
-                    size: 50,
-                    showDeleteFromPlaylist: true,
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              AudioFile(),
-            ],
+                    SizedBox(width: 50),
+                    MoreInfoBottomSheet(
+                      title: audioPlayer.currentSong.title,
+                      artist: audioPlayer.currentSong.artist,
+                      size: 50,
+                      showDeleteFromPlaylist: true,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                AudioFile(),
+              ],
+            ),
           ),
         ),
       ),
