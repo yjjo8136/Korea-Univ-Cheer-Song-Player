@@ -60,8 +60,7 @@ class _AudioFileState extends State<AudioFile> {
             InkWell(
               child: Icon(Icons.repeat,
                   size: 40,
-                  color:
-                      audioPlayer.isRepeat ? Color(0xFF7C001A) : Colors.black),
+                  color: audioPlayer.isRepeat ? Colors.black : Colors.black38),
               onTap: () {
                 audioPlayer.toggleLoopMode();
               },
@@ -96,7 +95,7 @@ class _AudioFileState extends State<AudioFile> {
               child: Icon(
                 Icons.shuffle,
                 size: 40,
-                color: audioPlayer.isShuffle ? Color(0xFF7C001A) : Colors.black,
+                color: audioPlayer.isShuffle ? Colors.black : Colors.black38,
               ),
               onTap: () {
                 audioPlayer.toggleSuffleMode();
