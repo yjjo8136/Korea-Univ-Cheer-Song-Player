@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
               child: Container(
                 width: double.infinity,
                 child: Text(
-                  '인기 순위',
+                  '2022 고연전 빈출 응원가',
                   textAlign: TextAlign.start,
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
@@ -31,6 +31,10 @@ class HomePage extends StatelessWidget {
                   _buildSongTile('1', '민족의 아리아', '고려대학교'),
                   _buildSongTile('2', '뱃노래', '고려대학교'),
                   _buildSongTile('3', 'Forever', '고려대학교'),
+                  _buildSongTile('4', '출사표', '고려대학교'),
+                  _buildSongTile('5', '들보기', '고려대학교'),
+                  _buildSongTile('6', '엘리제를 위하여', '고려대학교'),
+                  _buildSongTile('7', '꿇어라 연세', '고려대학교'),
                 ],
               ),
             ),
