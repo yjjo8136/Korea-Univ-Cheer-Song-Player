@@ -40,8 +40,8 @@ class _NavigationPageState extends State<NavigationPage> {
     return BottomNavigationBar(
       iconSize: 30,
       backgroundColor: Color(0xFF7C001A),
-      showSelectedLabels: false, //selected item
-      showUnselectedLabels: false, //unselected item
+      showSelectedLabels: true, //selected item
+      showUnselectedLabels: true, //unselected item
       selectedItemColor: Colors.black,
       unselectedItemColor: Colors.white,
       items: <BottomNavigationBarItem>[
@@ -51,7 +51,7 @@ class _NavigationPageState extends State<NavigationPage> {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.search),
-          label: '검색',
+          label: '모든 응원가',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.favorite_border),
