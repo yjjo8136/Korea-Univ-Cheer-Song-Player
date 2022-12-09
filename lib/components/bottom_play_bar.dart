@@ -91,6 +91,28 @@ class _BottomPlayBarState extends State<BottomPlayBar> {
   }
 
   Widget _buildPlayingSongInfo() {
+    final audioPlayer = context.watch<AudioPlayerNotifier>();
+    if (audioPlayer.playlist.length == 0) {
+      return Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            Text(
+              "플레이리스트에",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            Text(
+              "응원가를 추가해주세요",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
     return Consumer<AudioPlayerNotifier>(
       builder: (context, audioPlayerNotifier, child) {
         return Padding(
