@@ -1,4 +1,4 @@
-<플레이스토어 다운로드 링크 (아래 이미지를 클릭하면 이동합니다)>
+플레이스토어 다운로드 링크 (아래 이미지를 클릭하면 이동합니다)
 
 [![image](https://user-images.githubusercontent.com/66682023/207113981-83ff5bb0-d2d4-4d4a-b6ff-02fcd1ef2488.png)](https://play.google.com/store/apps/details?id=com.kusic)
 
