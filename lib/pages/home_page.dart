@@ -66,8 +66,12 @@ class HomePage extends StatelessWidget {
             child: Row(
               children: [
                 SizedBox(width: 25),
-                Image.asset('assets/korea_univ_logo.png',
-                    height: 45, width: 45),
+                Image.asset(
+                    currentSong.artist == '고려대학교'
+                        ? 'assets/images/korea_univ_logo.png'
+                        : 'assets/images/yonsei_univ_logo.png',
+                    height: 45,
+                    width: 45),
                 SizedBox(width: 10),
                 Padding(
                   padding: const EdgeInsets.all(10.0),

@@ -51,7 +51,9 @@ class _SongDetailPageState extends State<SongDetailPage> {
                 ),
                 SizedBox(height: 30),
                 Image.asset(
-                  'assets/korea_univ_logo.png',
+                  currentSong.artist == '고려대학교'
+                      ? 'assets/images/korea_univ_logo.png'
+                      : 'assets/images/yonsei_univ_logo.png',
                   height: 270,
                   width: 270,
                   fit: BoxFit.fill,

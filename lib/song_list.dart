@@ -33,6 +33,7 @@ final List<CheerSong> songInfoList = [
   CheerSong(title: '영원하라', artist: '고려대학교', path: 'yeongwonhara.mp3'),
   CheerSong(title: '연세치킨', artist: '고려대학교', path: 'yonsei_chicken.mp3'),
   CheerSong(title: 'Young Tigers', artist: '고려대학교', path: 'young_tigers.mp3'),
+  //CheerSong(title: '하늘끝까지', artist: '연세대학교', path: 'haneulggutggaji.mp3'),
 ];
 
 class CheerSong {

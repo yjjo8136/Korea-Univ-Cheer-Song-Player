@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
 import 'package:korea_univ_cheer_song_player/pages/song_detail_page.dart';
+import 'package:korea_univ_cheer_song_player/song_list.dart';
 import 'package:provider/provider.dart';
 
 class PlaylistPlayBar extends StatefulWidget {
@@ -107,16 +108,32 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
   }
 
   Widget _buildSongDetailButton(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SongDetailPage(),
-          ),
+    return Consumer<AudioPlayerNotifier>(
+      builder: (context, audioPlayerNotifier, child) {
+        late CheerSong currentSong;
+        for (int i = 0; i < songInfoList.length; i++) {
+          if (songInfoList[i].title == audioPlayerNotifier.currentSong.title) {
+            currentSong = songInfoList[i];
+            break;
+          }
+        }
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SongDetailPage(),
+              ),
+            );
+          },
+          child: Image.asset(
+              currentSong.artist == '고려대학교'
+                  ? 'assets/images/korea_univ_logo.png'
+                  : 'assets/images/yonsei_univ_logo.png',
+              height: 45,
+              width: 45),
         );
       },
-      child: Image.asset('assets/korea_univ_logo.png', height: 45, width: 45),
     );
   }
 

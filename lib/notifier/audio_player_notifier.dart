@@ -153,7 +153,7 @@ class AudioPlayerNotifier extends ChangeNotifier {
       tag: MediaItem(
         id: song.title,
         title: song.title,
-        artist: song.title,
+        artist: song.artist,
         //artUri: Uri.parse('https://ibb.co/vH61fXR'),
       ),
     ));
