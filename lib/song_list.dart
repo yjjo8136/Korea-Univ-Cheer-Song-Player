@@ -33,7 +33,17 @@ final List<CheerSong> songInfoList = [
   CheerSong(title: '영원하라', artist: '고려대학교', path: 'yeongwonhara.mp3'),
   CheerSong(title: '연세치킨', artist: '고려대학교', path: 'yonsei_chicken.mp3'),
   CheerSong(title: 'Young Tigers', artist: '고려대학교', path: 'young_tigers.mp3'),
-  //CheerSong(title: '하늘끝까지', artist: '연세대학교', path: 'haneulggutggaji.mp3'),
+  CheerSong(title: 'KOREA', artist: '고려대학교', path: 'KOREA.mp3'),
+  CheerSong(title: '캉캉', artist: '고려대학교', path: 'KangKang.mp3'),
+  CheerSong(title: '무인도', artist: '고려대학교', path: 'muindo.mp3'),
+  CheerSong(title: '샹젤리제', artist: '고려대학교', path: 'changelige.mp3'),
+  CheerSong(title: '쉬잇', artist: '고려대학교', path: 'sheet.mp3'),
+  CheerSong(title: '연세까스', artist: '고려대학교', path: 'yonseigas.mp3'),
+  CheerSong(title: '연세여 사랑한다', artist: '연세대학교', path: 'loveYonsei.mp3'),
+  CheerSong(title: '하늘끝까지', artist: '연세대학교', path: 'haneulgutt.mp3'),
+  CheerSong(title: '원시림', artist: '연세대학교', path: 'wonsilim.mp3'),
+  CheerSong(title: '서시', artist: '연세대학교', path: 'seosi.mp3'),
+  CheerSong(title: '오늘밤새', artist: '연세대학교', path: 'bamse.mp3'),
 ];
 
 class CheerSong {
