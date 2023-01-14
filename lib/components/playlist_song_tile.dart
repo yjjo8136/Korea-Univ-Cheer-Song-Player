@@ -79,10 +79,12 @@ class _PlaylistSongTileState extends State<PlaylistSongTile> {
                     ),
                   ],
                 ),
-                onTap: () {
-                  audioPlayer.changePlaylistIndex(currentSong);
-                  audioPlayer.playAudio();
-                },
+                onTap: widget.editMode
+                    ? () {}
+                    : () {
+                        audioPlayer.changePlaylistIndex(currentSong);
+                        audioPlayer.playAudio();
+                      },
               ),
             ),
           ),
