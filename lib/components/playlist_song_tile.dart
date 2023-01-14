@@ -9,12 +9,14 @@ class PlaylistSongTile extends StatefulWidget {
   final String artist;
   final bool selected;
   final bool editMode;
+  final int editIndex;
 
   const PlaylistSongTile({
     required this.title,
     required this.artist,
     this.selected = false,
     this.editMode = false,
+    this.editIndex = 0,
   });
 
   @override
@@ -85,7 +87,8 @@ class _PlaylistSongTileState extends State<PlaylistSongTile> {
             ),
           ),
           widget.editMode
-              ? Icon(Icons.menu)
+              ? ReorderableDragStartListener(
+                  index: widget.editIndex, child: Icon(Icons.menu))
               : MoreInfoBottomSheet(
                   title: widget.title,
                   artist: widget.artist,

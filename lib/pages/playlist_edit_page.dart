@@ -43,6 +43,7 @@ class _PlaylistEditPageState extends State<PlaylistEditPage> {
                   ? true
                   : false,
               editMode: true,
+              editIndex: index,
             ),
           );
         },
