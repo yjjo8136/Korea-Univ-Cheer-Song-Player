@@ -29,27 +29,33 @@ class _PlaylistEditPageState extends State<PlaylistEditPage> {
     final audioPlayer = context.watch<AudioPlayerNotifier>();
 
     return Expanded(
-      child: ReorderableListView.builder(
-        key: Key("Const"),
-        itemCount: audioPlayer.playlist.length,
-        itemBuilder: (context, index) {
-          return Container(
-            key: ValueKey(audioPlayer.playlist[index].title),
-            child: PlaylistSongTile(
-              title: audioPlayer.playlist[index].title,
-              artist: audioPlayer.playlist[index].artist,
-              selected: audioPlayer.currentSong.title ==
-                      audioPlayer.playlist[index].title
-                  ? true
-                  : false,
-              editMode: true,
-              editIndex: index,
-            ),
-          );
-        },
-        onReorder: (oldIndex, newIndex) {
-          audioPlayer.reorderPlaylist(oldIndex, newIndex);
-        },
+      child: Theme(
+        data: ThemeData(
+          canvasColor: Colors.transparent,
+          shadowColor: Colors.grey.withOpacity(0.2),
+        ),
+        child: ReorderableListView.builder(
+          key: Key("Const"),
+          itemCount: audioPlayer.playlist.length,
+          itemBuilder: (context, index) {
+            return Container(
+              key: ValueKey(audioPlayer.playlist[index].title),
+              child: PlaylistSongTile(
+                title: audioPlayer.playlist[index].title,
+                artist: audioPlayer.playlist[index].artist,
+                selected: audioPlayer.currentSong.title ==
+                        audioPlayer.playlist[index].title
+                    ? true
+                    : false,
+                editMode: true,
+                editIndex: index,
+              ),
+            );
+          },
+          onReorder: (oldIndex, newIndex) {
+            audioPlayer.reorderPlaylist(oldIndex, newIndex);
+          },
+        ),
       ),
     );
   }
