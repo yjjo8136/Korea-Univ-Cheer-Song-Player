@@ -102,7 +102,7 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
                   color: audioPlayer.isShuffle ? Colors.white : Colors.white38,
                 ),
                 onTap: () {
-                  audioPlayer.toggleSuffleMode();
+                  audioPlayer.toggleShuffleMode();
                 },
               ),
               Spacer(),

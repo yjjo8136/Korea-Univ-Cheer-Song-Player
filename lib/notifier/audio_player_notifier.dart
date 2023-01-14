@@ -128,7 +128,7 @@ class AudioPlayerNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  toggleSuffleMode() async {
+  toggleShuffleMode() async {
     if (_isShuffle) {
       await _audioPlayer.setShuffleModeEnabled(false);
     } else {
@@ -181,6 +181,17 @@ class AudioPlayerNotifier extends ChangeNotifier {
         break;
       }
     }
+    notifyListeners();
+  }
+
+  reorderPlaylist(oldIndex, newIndex) {
+    if (newIndex > oldIndex) {
+      newIndex = newIndex - 1;
+    }
+
+    final element = _playlist.removeAt(oldIndex);
+    _playlist.insert(newIndex, element);
+    audioPlayerPlaylist.move(oldIndex, newIndex);
     notifyListeners();
   }
 

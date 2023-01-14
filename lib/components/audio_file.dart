@@ -119,7 +119,7 @@ class _AudioFileState extends State<AudioFile> {
                       : Colors.black38,
                 ),
                 onTap: () {
-                  audioPlayer.toggleSuffleMode();
+                  audioPlayer.toggleShuffleMode();
                 },
               ),
             ],

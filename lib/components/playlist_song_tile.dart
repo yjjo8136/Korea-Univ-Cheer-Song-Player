@@ -8,11 +8,13 @@ class PlaylistSongTile extends StatefulWidget {
   final String title;
   final String artist;
   final bool selected;
+  final bool editMode;
 
   const PlaylistSongTile({
     required this.title,
     required this.artist,
     this.selected = false,
+    this.editMode = false,
   });
 
   @override
@@ -82,12 +84,14 @@ class _PlaylistSongTileState extends State<PlaylistSongTile> {
               ),
             ),
           ),
-          MoreInfoBottomSheet(
-            title: widget.title,
-            artist: widget.artist,
-            size: 25,
-            showDeleteFromPlaylist: true,
-          ),
+          widget.editMode
+              ? Icon(Icons.menu)
+              : MoreInfoBottomSheet(
+                  title: widget.title,
+                  artist: widget.artist,
+                  size: 25,
+                  showDeleteFromPlaylist: true,
+                ),
           SizedBox(width: 25),
         ],
       ),
