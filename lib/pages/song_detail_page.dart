@@ -49,14 +49,42 @@ class _SongDetailPageState extends State<SongDetailPage> {
                     fontSize: 16,
                   ),
                 ),
-                SizedBox(height: 30),
-                Image.asset(
-                  currentSong.artist == '고려대학교'
-                      ? 'assets/images/korea_univ_logo.png'
-                      : 'assets/images/yonsei_univ_logo.png',
-                  height: 270,
-                  width: 270,
-                  fit: BoxFit.fill,
+                SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      child: Icon(
+                        likedNotifier.isLiked(currentSong)
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        size: 30,
+                        color: Color(0xFF7C001A),
+                      ),
+                      onTap: () {
+                        likedNotifier.toggleLikedSong(currentSong);
+                      },
+                    ),
+                    SizedBox(width: 50),
+                    MoreInfoBottomSheet(
+                      title: audioPlayer.currentSong.title,
+                      artist: audioPlayer.currentSong.artist,
+                      size: 30,
+                      showDeleteFromPlaylist: true,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(30.0),
+                  child: Image.asset(
+                    currentSong.artist == '고려대학교'
+                        ? 'assets/images/korea_univ_logo.png'
+                        : 'assets/images/yonsei_univ_logo.png',
+                    height: 270,
+                    width: 270,
+                    fit: BoxFit.fill,
+                  ),
                 ),
                 SizedBox(height: 20),
                 InkWell(
@@ -75,29 +103,6 @@ class _SongDetailPageState extends State<SongDetailPage> {
                   },
                 ),
                 SizedBox(height: 30),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      child: Icon(
-                          likedNotifier.isLiked(currentSong)
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          size: 30),
-                      onTap: () {
-                        likedNotifier.toggleLikedSong(currentSong);
-                      },
-                    ),
-                    SizedBox(width: 50),
-                    MoreInfoBottomSheet(
-                      title: audioPlayer.currentSong.title,
-                      artist: audioPlayer.currentSong.artist,
-                      size: 50,
-                      showDeleteFromPlaylist: true,
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
                 AudioFile(),
               ],
             ),

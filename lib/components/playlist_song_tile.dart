@@ -37,53 +37,58 @@ class _PlaylistSongTileState extends State<PlaylistSongTile> {
       height: 80,
       child: Row(
         children: [
-          SizedBox(width: 25),
-          Image.asset(currentSong.artist == '고려대학교'
-              ? 'assets/images/korea_univ_logo.png'
-              : 'assets/images/yonsei_univ_logo.png',
-              height: 45, width: 45),
+          SizedBox(width: 40),
+          Image.asset(
+              currentSong.artist == '고려대학교'
+                  ? 'assets/images/korea_univ_logo.png'
+                  : 'assets/images/yonsei_univ_logo.png',
+              height: 45,
+              width: 45),
           SizedBox(width: 10),
-          InkWell(
+          Expanded(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.title,
-                    style: TextStyle(
-                      color: widget.selected ? Color(0xFF7C001A) : Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+              child: InkWell(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.title,
+                      style: TextStyle(
+                        color:
+                            widget.selected ? Color(0xFF7C001A) : Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    widget.artist,
-                    style: TextStyle(
-                      color: widget.selected
-                          ? Color(0x4D7C001A)
-                          : Color(0x4D000000),
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                    SizedBox(height: 2),
+                    Text(
+                      widget.artist,
+                      style: TextStyle(
+                        color: widget.selected
+                            ? Color(0x4D7C001A)
+                            : Color(0x4D000000),
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
+                onTap: () {
+                  audioPlayer.changePlaylistIndex(currentSong);
+                  audioPlayer.playAudio();
+                },
               ),
             ),
-            onTap: () {
-              audioPlayer.changePlaylistIndex(currentSong);
-              audioPlayer.playAudio();
-            },
           ),
-          Spacer(),
           MoreInfoBottomSheet(
             title: widget.title,
             artist: widget.artist,
-            size: 45,
+            size: 25,
             showDeleteFromPlaylist: true,
           ),
-          SizedBox(width: 10),
+          SizedBox(width: 25),
         ],
       ),
     );

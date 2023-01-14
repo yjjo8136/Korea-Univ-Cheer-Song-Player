@@ -14,13 +14,20 @@ class _SearchPageState extends State<SearchPage> {
       child: Scaffold(
         body: Column(
           children: [
-            SizedBox(height: 30),
-            Text(
-              '응원가 전체 보기',
-              textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            Padding(
+              padding: const EdgeInsets.only(left: 40, top: 20, bottom: 20),
+              child: Container(
+                width: double.infinity,
+                child: Text(
+                  '응원가 전체 보기',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF910023)),
+                ),
+              ),
             ),
-            SizedBox(height: 20),
             /*
             Padding(
               padding: const EdgeInsets.all(8.0),

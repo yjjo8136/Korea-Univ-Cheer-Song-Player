@@ -13,13 +13,20 @@ class LikePage extends StatelessWidget {
         child: Scaffold(
           body: Column(
             children: [
-              SizedBox(height: 30),
-              Text(
-                '좋아요 목록',
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.only(left: 40, top: 20, bottom: 20),
+                child: Container(
+                  width: double.infinity,
+                  child: Text(
+                    '좋아요 목록',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF910023)),
+                  ),
+                ),
               ),
-              SizedBox(height: 20),
               Expanded(
                 child: ListView.builder(
                   itemCount: likedSongList.length,

@@ -33,7 +33,7 @@ class _SongTileState extends State<SongTile> {
       height: 80,
       child: Row(
         children: [
-          SizedBox(width: 25),
+          SizedBox(width: 40),
           Image.asset(
               currentSong.artist == '고려대학교'
                   ? 'assets/images/korea_univ_logo.png'
@@ -45,12 +45,13 @@ class _SongTileState extends State<SongTile> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   widget.title,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -59,7 +60,7 @@ class _SongTileState extends State<SongTile> {
                   widget.artist,
                   style: TextStyle(
                     color: Color(0x4D000000),
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -69,8 +70,8 @@ class _SongTileState extends State<SongTile> {
           Spacer(),
           _buildPlayButton(currentSong),
           MoreInfoBottomSheet(
-              title: widget.title, artist: widget.artist, size: 45),
-          SizedBox(width: 10),
+              title: widget.title, artist: widget.artist, size: 25),
+          SizedBox(width: 25),
         ],
       ),
     );
@@ -80,7 +81,11 @@ class _SongTileState extends State<SongTile> {
     return Consumer<AudioPlayerNotifier>(
       builder: (context, audioPlayerNotifier, child) {
         return InkWell(
-          child: Icon(Icons.play_arrow, size: 45),
+          child: Icon(
+            Icons.play_arrow_rounded,
+            size: 45,
+            color: Color(0xFF7C001A),
+          ),
           onTap: () {
             audioPlayerNotifier.addToPlaylist(currentSong);
             audioPlayerNotifier.playAudio();

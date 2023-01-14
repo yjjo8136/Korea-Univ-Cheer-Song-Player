@@ -12,24 +12,28 @@ class PlaylistPage extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            SizedBox(height: 30),
-            Stack(
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    '플레이리스트',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.only(top: 30, left: 40, bottom: 10),
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '플레이리스트',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF910023),
+                      ),
                     ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: _buildCloseButton(context),
-                ),
-              ],
+                  Positioned(
+                    top: -25,
+                    right: 5,
+                    child: _buildCloseButton(context),
+                  ),
+                ],
+              ),
             ),
             /*
             Padding(

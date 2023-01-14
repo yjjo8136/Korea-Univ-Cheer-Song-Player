@@ -11,18 +11,19 @@ class LyricDetailPage extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            SizedBox(height: 20),
-            Row(
+            SizedBox(height: 40),
+            Stack(
+              clipBehavior: Clip.none,
               children: [
-                _buildSongTitle(),
-                Spacer(),
-                InkWell(
-                  child: Icon(Icons.close, size: 30),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+                Align(
+                  alignment: Alignment.center,
+                  child: _buildSongTitle(),
                 ),
-                SizedBox(width: 16),
+                Positioned(
+                  top: -15,
+                  right: 15,
+                  child: _buildCloseButton(context),
+                ),
               ],
             ),
             SizedBox(height: 20),
@@ -35,13 +36,22 @@ class LyricDetailPage extends StatelessWidget {
   }
 
   Widget _buildSongTitle() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16),
-      child: Consumer<AudioPlayerNotifier>(
-        builder: (context, audioPlayer, child) {
-          return Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Consumer<AudioPlayerNotifier>(
+      builder: (context, audioPlayer, child) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              audioPlayer.currentSong.artist == '고려대학교'
+                  ? 'assets/images/korea_univ_logo.png'
+                  : 'assets/images/yonsei_univ_logo.png',
+              height: 35,
+              width: 35,
+              fit: BoxFit.fill,
+            ),
+            SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   audioPlayer.currentSong.title,
@@ -50,6 +60,7 @@ class LyricDetailPage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                SizedBox(height: 3),
                 Text(
                   audioPlayer.currentSong.artist,
                   style: TextStyle(
@@ -58,9 +69,9 @@ class LyricDetailPage extends StatelessWidget {
                 ),
               ],
             ),
-          );
-        },
-      ),
+          ],
+        );
+      },
     );
   }
 
@@ -69,6 +80,20 @@ class LyricDetailPage extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 16.0),
         child: FullLyric(),
+      ),
+    );
+  }
+
+  Widget _buildCloseButton(BuildContext context) {
+    return Container(
+      child: IconButton(
+        icon: Icon(
+          Icons.close,
+          size: 40,
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
     );
   }

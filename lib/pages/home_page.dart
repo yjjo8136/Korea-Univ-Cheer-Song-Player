@@ -15,13 +15,16 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16),
+              padding: const EdgeInsets.only(left: 40, top: 20, bottom: 20),
               child: Container(
                 width: double.infinity,
                 child: Text(
                   '2022 고연전 빈출 응원가',
                   textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF910023)),
                 ),
               ),
             ),
@@ -59,10 +62,10 @@ class HomePage extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: Color(0xFFDBBA81),
+              color: Color(0x4AFFFFFF),
             ),
             width: double.infinity,
-            height: 80,
+            height: 70,
             child: Row(
               children: [
                 SizedBox(width: 25),
@@ -77,12 +80,13 @@ class HomePage extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         rank + '    ' + title,
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -91,8 +95,8 @@ class HomePage extends StatelessWidget {
                         '          ' + artist,
                         style: TextStyle(
                           color: Color(0x4D000000),
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          //fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
@@ -100,13 +104,17 @@ class HomePage extends StatelessWidget {
                 ),
                 Spacer(),
                 InkWell(
-                  child: Icon(Icons.play_arrow, size: 30),
+                  child: Icon(
+                    Icons.play_arrow_rounded,
+                    size: 40,
+                    color: Color(0xFF7C001A),
+                  ),
                   onTap: () {
                     audioPlayerNotifier.addToPlaylist(currentSong);
                     audioPlayerNotifier.playAudio();
                   },
                 ),
-                MoreInfoBottomSheet(title: title, artist: artist, size: 30),
+                MoreInfoBottomSheet(title: title, artist: artist, size: 25),
                 SizedBox(width: 10),
               ],
             ),

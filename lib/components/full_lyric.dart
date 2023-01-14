@@ -52,6 +52,9 @@ class _FullLyricState extends State<FullLyric> {
                 fontWeight: isCurrentLyric(lrcList, index)
                     ? FontWeight.bold
                     : FontWeight.normal,
+                color: isCurrentLyric(lrcList, index)
+                    ? Color(0xFF7C001A)
+                    : Colors.black,
               ),
             ),
             onTap: () {

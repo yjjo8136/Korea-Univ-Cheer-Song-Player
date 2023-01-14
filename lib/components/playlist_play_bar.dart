@@ -26,7 +26,7 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
           width: double.infinity,
           child: Slider(
             activeColor: Color(0xFF7C001A),
-            inactiveColor: Colors.grey,
+            inactiveColor: Color(0x4DFFFFFF),
             value: audioPlayer.position.inSeconds.toDouble(),
             min: 0.0,
             max: audioPlayer.duration.inSeconds.toDouble(),
@@ -41,22 +41,27 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
         ),
         Container(
           width: double.infinity,
-          height: 70,
+          height: 65,
           color: Color(0xFF7C001A),
           child: Row(
             children: [
+              SizedBox(width: 30),
               InkWell(
                 child: Icon(Icons.repeat,
                     size: 40,
                     color:
-                        audioPlayer.isRepeat ? Colors.black : Colors.black38),
+                        audioPlayer.isRepeat ? Colors.white : Colors.white38),
                 onTap: () {
                   audioPlayer.toggleLoopMode();
                 },
               ),
               Spacer(),
               InkWell(
-                child: Icon(Icons.skip_previous, size: 40),
+                child: Icon(
+                  Icons.skip_previous_rounded,
+                  size: 40,
+                  color: Colors.white,
+                ),
                 onTap: () {
                   audioPlayer.skipToPrevious();
                 },
@@ -64,10 +69,12 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
               Spacer(),
               InkWell(
                 child: Icon(
-                    audioPlayer.isPlaying == false
-                        ? Icons.play_arrow
-                        : Icons.pause,
-                    size: 60),
+                  audioPlayer.isPlaying == false
+                      ? Icons.play_arrow_rounded
+                      : Icons.pause,
+                  size: 60,
+                  color: Colors.white,
+                ),
                 onTap: () async {
                   if (audioPlayer.isPlaying == false) {
                     audioPlayer.playAudio();
@@ -78,7 +85,11 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
               ),
               Spacer(),
               InkWell(
-                child: Icon(Icons.skip_next, size: 40),
+                child: Icon(
+                  Icons.skip_next_rounded,
+                  size: 40,
+                  color: Colors.white,
+                ),
                 onTap: () {
                   audioPlayer.skipToNext();
                 },
@@ -88,7 +99,7 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
                 child: Icon(
                   Icons.shuffle,
                   size: 40,
-                  color: audioPlayer.isShuffle ? Colors.black : Colors.black38,
+                  color: audioPlayer.isShuffle ? Colors.white : Colors.white38,
                 ),
                 onTap: () {
                   audioPlayer.toggleSuffleMode();
@@ -143,7 +154,7 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
         Navigator.pop(context);
         Navigator.pop(context);
       },
-      child: Icon(Icons.playlist_play, size: 45),
+      child: Icon(Icons.playlist_play, size: 45, color: Colors.white),
     );
   }
 }

@@ -21,7 +21,7 @@ class _BottomPlayBarState extends State<BottomPlayBar> {
           width: double.infinity,
           child: Slider(
             activeColor: Color(0xFF7C001A),
-            inactiveColor: Colors.grey,
+            inactiveColor: Color(0x4DFFFFFF),
             value: audioPlayer.position.inSeconds.toDouble(),
             min: 0.0,
             max: audioPlayer.duration.inSeconds.toDouble(),
@@ -36,21 +36,42 @@ class _BottomPlayBarState extends State<BottomPlayBar> {
         ),
         Container(
           width: double.infinity,
-          height: 70,
+          height: 60,
           color: Color(0xCC7C001A),
           child: Row(
             children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: IconButton(
+                  color: Colors.white,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PlaylistPage(),
+                      ),
+                    );
+                  },
+                  icon: Icon(Icons.playlist_play_rounded, size: 45),
+                ),
+              ),
+              SizedBox(width: 20),
               Expanded(child: _buildPlayingSongInfo()),
               InkWell(
-                child: Icon(Icons.skip_previous, size: 40),
+                child: Icon(
+                  Icons.skip_previous_rounded,
+                  size: 40,
+                  color: Colors.white,
+                ),
                 onTap: () {
                   audioPlayer.skipToPrevious();
                 },
               ),
               InkWell(
                 child: Icon(
+                    color: Colors.white,
                     audioPlayer.isPlaying == false
-                        ? Icons.play_arrow
+                        ? Icons.play_arrow_rounded
                         : Icons.pause,
                     size: 60),
                 onTap: () async {
@@ -62,27 +83,16 @@ class _BottomPlayBarState extends State<BottomPlayBar> {
                 },
               ),
               InkWell(
-                child: Icon(Icons.skip_next, size: 40),
+                child: Icon(
+                  Icons.skip_next_rounded,
+                  size: 40,
+                  color: Colors.white,
+                ),
                 onTap: () {
                   audioPlayer.skipToNext();
                 },
               ),
               SizedBox(width: 20),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PlaylistPage(),
-                      ),
-                    );
-                  },
-                  icon: Icon(Icons.playlist_play, size: 50),
-                ),
-              ),
-              SizedBox(width: 10),
             ],
           ),
         ),
@@ -121,20 +131,22 @@ class _BottomPlayBarState extends State<BottomPlayBar> {
             child: Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     audioPlayerNotifier.currentSong.title,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  SizedBox(height: 3),
                   Text(
                     audioPlayerNotifier.currentSong.artist,
                     style: TextStyle(
                       color: Color(0x80FFFFFF),
-                      fontSize: 16,
+                      fontSize: 10,
                     ),
                   ),
                 ],
