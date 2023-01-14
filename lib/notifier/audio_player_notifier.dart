@@ -192,6 +192,8 @@ class AudioPlayerNotifier extends ChangeNotifier {
     final element = _playlist.removeAt(oldIndex);
     _playlist.insert(newIndex, element);
     audioPlayerPlaylist.move(oldIndex, newIndex);
+    print("!@#!@#!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@");
+    _saveToPrefs();
     notifyListeners();
   }
 
