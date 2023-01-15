@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
 import 'package:korea_univ_cheer_song_player/notifier/liked_notifier.dart';
 import 'package:korea_univ_cheer_song_player/pages/raw_song_lyric_page.dart';
+import 'package:korea_univ_cheer_song_player/pages/song_info_page.dart';
 import 'package:korea_univ_cheer_song_player/song_list.dart';
 import 'package:provider/provider.dart';
 
@@ -112,8 +113,29 @@ class MoreInfoBottomSheet extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Text(
+                        '응원가 상세 정보 (매우 상세함)',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SongInfoPage(song: currentSong),
+                      ),
+                    );
+                  },
+                ),
+                Divider(),
+                InkWell(
+                  child: Container(
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text(
                         '가사 보기',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 18),
                       ),
                     ),
                   ),
@@ -136,7 +158,7 @@ class MoreInfoBottomSheet extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Text(
                         '응원 동작 보기',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 18),
                       ),
                     ),
                   ),
@@ -151,7 +173,7 @@ class MoreInfoBottomSheet extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Text(
                         '재생 목록에 담기',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 18),
                       ),
                     ),
                   ),
@@ -169,7 +191,7 @@ class MoreInfoBottomSheet extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Text(
                               '재생목록에서 삭제',
-                              style: TextStyle(fontSize: 20),
+                              style: TextStyle(fontSize: 18),
                             ),
                           ),
                         ),
