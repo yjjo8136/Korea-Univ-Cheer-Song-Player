@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:korea_univ_cheer_song_player/components/bottom_play_bar.dart';
-import 'package:korea_univ_cheer_song_player/notifier/audio_player_notifier.dart';
 import 'package:korea_univ_cheer_song_player/song_list.dart';
 import 'package:lrc/lrc.dart';
-import 'package:provider/provider.dart';
 
 class RawSongLyricPage extends StatelessWidget {
   final CheerSong song;
@@ -17,18 +15,19 @@ class RawSongLyricPage extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            SizedBox(height: 20),
-            Row(
+            SizedBox(height: 40),
+            Stack(
+              clipBehavior: Clip.none,
               children: [
-                _buildSongTitle(),
-                Spacer(),
-                InkWell(
-                  child: Icon(Icons.close, size: 30),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+                Align(
+                  alignment: Alignment.center,
+                  child: _buildSongTitle(),
                 ),
-                SizedBox(width: 16),
+                Positioned(
+                  top: -15,
+                  right: 15,
+                  child: _buildCloseButton(context),
+                ),
               ],
             ),
             SizedBox(height: 20),
@@ -41,30 +40,50 @@ class RawSongLyricPage extends StatelessWidget {
   }
 
   Widget _buildSongTitle() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16),
-      child: Consumer<AudioPlayerNotifier>(
-        builder: (context, audioPlayer, child) {
-          return Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  song.title,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  song.artist,
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ],
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          song.artist == '고려대학교'
+              ? 'assets/images/korea_univ_logo.png'
+              : 'assets/images/yonsei_univ_logo.png',
+          height: 35,
+          width: 35,
+          fit: BoxFit.fill,
+        ),
+        SizedBox(width: 10),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              song.title,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          );
+            SizedBox(height: 3),
+            Text(
+              song.artist,
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCloseButton(BuildContext context) {
+    return Container(
+      child: IconButton(
+        icon: Icon(
+          Icons.close,
+          size: 40,
+        ),
+        onPressed: () {
+          Navigator.pop(context);
         },
       ),
     );
