@@ -154,7 +154,7 @@ class _PlaylistPlayBarState extends State<PlaylistPlayBar> {
         Navigator.pop(context);
         Navigator.pop(context);
       },
-      child: Icon(Icons.playlist_play, size: 45, color: Colors.white),
+      child: Icon(Icons.playlist_play_rounded, size: 45, color: Colors.white),
     );
   }
 }
