@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          scaffoldBackgroundColor: const Color(0xFFD7C9B1),
+          scaffoldBackgroundColor: const Color(0xFFEEDFC6),
         ),
         home: NavigationPage(),
       ),
