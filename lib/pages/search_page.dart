@@ -8,6 +8,9 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  final controller = TextEditingController();
+  List<CheerSong> songs = songInfoList;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,26 +31,38 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ),
             ),
-            /*
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(bottom: 8),
               child: Row(
                 children: [
-                  Icon(Icons.search, size: 30),
-                  SizedBox(width: 20),
-                  Expanded(child: TextField()),
+                  SizedBox(width: 35),
+                  Expanded(
+                    child: TextField(
+                      controller: controller,
+                      decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Color(0x4D910023)),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFF910023)),
+                        ),
+                      ),
+                      onChanged: searchSong,
+                    ),
+                  ),
                   SizedBox(width: 10),
+                  Icon(Icons.search, size: 30, color: Color(0xFF910023)),
+                  SizedBox(width: 20),
                 ],
               ),
             ),
-            */
             Expanded(
               child: ListView.builder(
-                itemCount: songInfoList.length,
+                itemCount: songs.length,
                 itemBuilder: (context, index) {
                   return SongTile(
-                    title: songInfoList[index].title,
-                    artist: songInfoList[index].artist,
+                    title: songs[index].title,
+                    artist: songs[index].artist,
                   );
                 },
               ),
@@ -56,5 +71,18 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ),
     );
+  }
+
+  void searchSong(String query) {
+    final suggestions = songInfoList.where((song) {
+      final songTitle = song.title.toLowerCase();
+      final input = query.toLowerCase();
+
+      return songTitle.contains(input);
+    }).toList();
+
+    setState(() {
+      songs = suggestions;
+    });
   }
 }
