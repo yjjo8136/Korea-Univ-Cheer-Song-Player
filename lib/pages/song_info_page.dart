@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:korea_univ_cheer_song_player/song_list.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SongInfoPage extends StatelessWidget {
   final CheerSong song;
@@ -30,6 +31,7 @@ class SongInfoPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             _buildSongInfo(context),
+            _buildVideoLinkButton(),
           ],
         ),
       ),
@@ -112,5 +114,33 @@ class SongInfoPage extends StatelessWidget {
             );
           }
         });
+  }
+
+  Widget _buildVideoLinkButton() {
+    String url = songInfoUrl[song.title] ?? "Error";
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(0xFF910023),
+      ),
+      onPressed: () async {
+        try {
+          await launchUrlString(url,
+              mode: LaunchMode.externalNonBrowserApplication);
+        } catch (e) {
+          print("App connection Failed!");
+          try {
+            await launchUrlString(url);
+          } catch (e) {
+            print("Web connection Failed!");
+          }
+        }
+      },
+      child: Wrap(
+        children: [
+          Icon(Icons.play_arrow_rounded),
+          Text("YouTube 영상"),
+        ],
+      ),
+    );
   }
 }
