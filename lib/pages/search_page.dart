@@ -18,7 +18,7 @@ class _SearchPageState extends State<SearchPage> {
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 40, top: 20, bottom: 20),
+              padding: const EdgeInsets.only(left: 40, top: 20),
               child: Container(
                 width: double.infinity,
                 child: Text(
@@ -32,28 +32,48 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Row(
-                children: [
-                  SizedBox(width: 35),
-                  Expanded(
-                    child: TextField(
-                      controller: controller,
-                      decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color(0x4D910023)),
+              padding: const EdgeInsets.only(bottom: 20),
+              child: SizedBox(
+                height: 60,
+                child: Row(
+                  children: [
+                    SizedBox(width: 20),
+                    Icon(Icons.search, size: 30, color: Color(0xFF910023)),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: TextField(
+                        controller: controller,
+                        style: TextStyle(color: Color(0xFF910023)),
+                        cursorColor: Color(0xFF910023),
+                        decoration: InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0x4D910023)),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xFF910023)),
+                          ),
+                          suffix: IconButton(
+                            icon: Icon(
+                              Icons.clear,
+                              color: Color(0xFF910023),
+                            ),
+                            onPressed: () {
+                              if (controller.value == TextEditingValue.empty) {
+                                // 올라온 키보드 끄기
+                                FocusManager.instance.primaryFocus?.unfocus();
+                              }
+                              controller.value = TextEditingValue.empty;
+                              songs = songInfoList;
+                              setState(() {});
+                            },
+                          ),
                         ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xFF910023)),
-                        ),
+                        onChanged: searchSong,
                       ),
-                      onChanged: searchSong,
                     ),
-                  ),
-                  SizedBox(width: 10),
-                  Icon(Icons.search, size: 30, color: Color(0xFF910023)),
-                  SizedBox(width: 20),
-                ],
+                    SizedBox(width: 20),
+                  ],
+                ),
               ),
             ),
             Expanded(
