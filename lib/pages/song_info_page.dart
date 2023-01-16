@@ -31,7 +31,14 @@ class SongInfoPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             _buildSongInfo(context),
-            _buildVideoLinkButton(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildVideoLinkButton(),
+                SizedBox(width: 20),
+                _buildReferenceButton(),
+              ],
+            ),
           ],
         ),
       ),
@@ -135,10 +142,46 @@ class SongInfoPage extends StatelessWidget {
           }
         }
       },
-      child: Wrap(
+      child: Row(
         children: [
-          Icon(Icons.play_arrow_rounded),
-          Text("YouTube 영상"),
+          Icon(
+            Icons.play_arrow_rounded,
+            size: 30,
+          ),
+          Text(
+            "YouTube 영상",
+            style: TextStyle(fontSize: 10),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildReferenceButton() {
+    String url =
+        "https://drive.google.com/file/d/1vfBu_ItH30Gt1a_YwXNx43xEkT1QiD7t/view?usp=sharing";
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(0xFF910023),
+      ),
+      onPressed: () async {
+        try {
+          await launchUrlString(url);
+        } catch (e) {
+          print("Web connection Failed!");
+        }
+      },
+      child: Row(
+        children: [
+          Icon(
+            Icons.file_copy,
+            size: 20,
+          ),
+          SizedBox(width: 5),
+          Text(
+            "원본 출처 보기",
+            style: TextStyle(fontSize: 10),
+          ),
         ],
       ),
     );
